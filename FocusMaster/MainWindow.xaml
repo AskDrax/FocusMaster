@@ -9,11 +9,11 @@
         Height="450" Width="800"
         MinHeight="240" MinWidth="320"
         BorderThickness="1,1,1,1"
-        Background="{StaticResource WindowBackgroundBrush}"
+        Background="Transparent"
         BorderBrush="{StaticResource WindowBorderBrush}"
         WindowStyle="None"
         RenderOptions.BitmapScalingMode="Fant"
-        AllowsTransparency="True"
+        AllowsTransparency="True" StateChanged="Window_StateChanged"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome x:Name="chrome"
@@ -35,6 +35,12 @@
             </Grid.ColumnDefinitions>
             <Border x:Name="MainIcon" Grid.Column="0" Background="Azure" OpacityMask="{StaticResource StackImage}"/>
             <TextBlock x:Name="MainTitle" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" LineStackingStrategy="BlockLineHeight" FontFamily="Segoe UI Semibold" FontSize="14" VerticalAlignment="Center" Foreground="Azure" Text="Focus Master!"/>
+            <StackPanel x:Name="ControlBoxStack" Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <Button x:Name="CloseButton" Width="32" VerticalAlignment="Stretch" Background="#FFA7A7A7" OpacityMask="{StaticResource CloseImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="CloseButton_Click"/>
+                <Button x:Name="MaximizeButton" Width="32" VerticalAlignment="Stretch" Background="#FFA7A7A7" OpacityMask="{StaticResource MaximizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MaximizeButton_Click"/>
+                <Button x:Name="MinimizeButton" Width="32" VerticalAlignment="Stretch" Background="#FFA7A7A7" OpacityMask="{StaticResource MinimizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MinimizeButton_Click"/>
+            </StackPanel>
         </Grid>
+        <Border x:Name="ContentBorder" Grid.Row="1" Background="{StaticResource WindowBackgroundBrush}"/>
     </Grid>
 </Window>

@@ -20,7 +20,6 @@
 
     <Color x:Key="CloseRed">#FFBF2828</Color>
 
-
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource DarkestGrey}"/>
     <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource AlmostBlack}"/>
     <SolidColorBrush x:Key="WindowCaptionBackgroundBrush" Color="{StaticResource MediumGrey}"/>

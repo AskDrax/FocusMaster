@@ -24,5 +24,46 @@ namespace FocusMaster
         {
             InitializeComponent();
         }
+
+        #region ControlBox
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowState != WindowState.Maximized)
+            {
+                WindowState = WindowState.Maximized;
+
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+            }
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            //overshoot fix
+            if (WindowState == WindowState.Maximized)
+            {
+                BorderBrush = new SolidColorBrush(Colors.Transparent);
+                BorderThickness = new Thickness(7, 7, 7, 7);
+            }
+            else
+            {
+                BorderBrush = (SolidColorBrush)Application.Current.FindResource("WindowBorderBrush");
+                BorderThickness = new Thickness(1, 1, 1, 1);
+            }
+        }
+
+        #endregion
     }
 }
