@@ -1,0 +1,172 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:FocusMaster.Resources">
+
+    <!-- Control -->
+
+    <ImageBrush x:Key="MinimizeImage" ImageSource="/Resources/Images/Control/minimize.png"/>
+    <ImageBrush x:Key="MaximizeImage" ImageSource="/Resources/Images/Control/maximize.png"/>
+    <ImageBrush x:Key="CloseImage" ImageSource="/Resources/Images/Control/close.png"/>
+    <ImageBrush x:Key="MoreImage" ImageSource="/Resources/Images/Control/more.png"/>
+    <ImageBrush x:Key="HMoreImage" ImageSource="/Resources/Images/Control/hmore.png"/>
+
+    <!-- Navigation -->
+
+    <ImageBrush x:Key="ArrowLeftImage" ImageSource="/Resources/Images/Navigation/arrow 1.png"/>
+    <ImageBrush x:Key="ArrowDownImage" ImageSource="/Resources/Images/Navigation/arrow 2.png"/>
+    <ImageBrush x:Key="ArrowRightImage" ImageSource="/Resources/Images/Navigation/arrow 3.png"/>
+    <ImageBrush x:Key="ArrowUpImage" ImageSource="/Resources/Images/Navigation/arrow 4.png"/>
+
+    <ImageBrush x:Key="ArrowOpenLeftImage" ImageSource="/Resources/Images/Navigation/arrow open left.png"/>
+    <ImageBrush x:Key="ArrowOpenDownImage" ImageSource="/Resources/Images/Navigation/arrow open down.png"/>
+    <ImageBrush x:Key="ArrowOpenRightImage" ImageSource="/Resources/Images/Navigation/arrow open right.png"/>
+    <ImageBrush x:Key="ArrowOpenUpImage" ImageSource="/Resources/Images/Navigation/arrow open up.png"/>
+
+    <ImageBrush x:Key="ArrowThinLeftImage" ImageSource="/Resources/Images/Navigation/arrow thin left.png"/>
+    <ImageBrush x:Key="ArrowThinDownImage" ImageSource="/Resources/Images/Navigation/arrow thin down.png"/>
+    <ImageBrush x:Key="ArrowThinRightImage" ImageSource="/Resources/Images/Navigation/arrow thin right.png"/>
+    <ImageBrush x:Key="ArrowThinUpImage" ImageSource="/Resources/Images/Navigation/arrow thin up.png"/>
+
+    <ImageBrush x:Key="ArrowTickLeftImage" ImageSource="/Resources/Images/Navigation/arrow tick left.png"/>
+    <ImageBrush x:Key="ArrowTickDownImage" ImageSource="/Resources/Images/Navigation/arrow tick down.png"/>
+    <ImageBrush x:Key="ArrowTickRightImage" ImageSource="/Resources/Images/Navigation/arrow tick right.png"/>
+    <ImageBrush x:Key="ArrowTickUpImage" ImageSource="/Resources/Images/Navigation/arrow tick up.png"/>
+
+    <ImageBrush x:Key="ArrowMoreLeftImage" ImageSource="/Resources/Images/Navigation/arrow more left.png"/>
+    <ImageBrush x:Key="ArrowMoreDownImage" ImageSource="/Resources/Images/Navigation/arrow more down.png"/>
+    <ImageBrush x:Key="ArrowMoreRightImage" ImageSource="/Resources/Images/Navigation/arrow more right.png"/>
+    <ImageBrush x:Key="ArrowMoreUpImage" ImageSource="/Resources/Images/Navigation/arrow more up.png"/>
+
+
+    <ImageBrush x:Key="ArrowHorizontalImage" ImageSource="/Resources/Images/Navigation/arrow horizontal.png"/>
+    <ImageBrush x:Key="ArrowVerticalImage" ImageSource="/Resources/Images/Navigation/arrow vertical.png"/>
+    <ImageBrush x:Key="ArrowGrowImage" ImageSource="/Resources/Images/Navigation/arrow grow.png"/>
+    <ImageBrush x:Key="ArrowShrinkImage" ImageSource="/Resources/Images/Navigation/arrow shrink.png"/>
+    <ImageBrush x:Key="ArrowPanImage" ImageSource="/Resources/Images/Navigation/arrow pan.png"/>
+
+    <ImageBrush x:Key="ArrowUndoImage" ImageSource="/Resources/Images/Navigation/arrow undo.png"/>
+    <ImageBrush x:Key="ArrowRedoImage" ImageSource="/Resources/Images/Navigation/arrow redo.png"/>
+
+    <!-- Layout -->
+
+    <ImageBrush x:Key="StackAbove" ImageSource="/Resources/Images/Layout/stack above.png"/>
+    <ImageBrush x:Key="StackBelow" ImageSource="/Resources/Images/Layout/stack below.png"/>
+    <ImageBrush x:Key="StackOpen" ImageSource="/Resources/Images/Layout/stack open.png"/>
+    <ImageBrush x:Key="StackSolid" ImageSource="/Resources/Images/Layout/stack solid.png"/>
+
+
+    <!-- Icon -->
+
+
+    <ImageBrush x:Key="HomeImage" ImageSource="/Resources/Images/Icon/home.png"/>
+    <ImageBrush x:Key="SettingsImage" ImageSource="/Resources/Images/Icon/settings.png"/>
+    <ImageBrush x:Key="Settings2Image" ImageSource="/Resources/Images/Icon/settings 12.png"/>
+    <ImageBrush x:Key="StackImage" ImageSource="/Resources/Images/Icon/stack.png"/>
+    <ImageBrush x:Key="4TileImage" ImageSource="/Resources/Images/Icon/4tile.png"/>
+    <ImageBrush x:Key="BoxImage" ImageSource="/Resources/Images/Icon/box.png"/>
+    <ImageBrush x:Key="AddImage" ImageSource="/Resources/Images/Icon/add.png"/>
+    <ImageBrush x:Key="WandImage" ImageSource="/Resources/Images/Icon/wand.png"/>
+    <ImageBrush x:Key="WindowImage" ImageSource="/Resources/Images/Icon/window.png"/>
+    <ImageBrush x:Key="WindowInfoImage" ImageSource="/Resources/Images/Icon/window_info.png"/>
+    <ImageBrush x:Key="PowerImage" ImageSource="/Resources/Images/Icon/power button.png"/>
+
+    <ImageBrush x:Key="MinusImage" ImageSource="/Resources/Images/Icon/minus.png"/>
+    <ImageBrush x:Key="Minus1Image" ImageSource="/Resources/Images/Icon/minus 1.png"/>
+    <ImageBrush x:Key="Minus2Image" ImageSource="/Resources/Images/Icon/minus 2.png"/>
+    <ImageBrush x:Key="Minus3Image" ImageSource="/Resources/Images/Icon/minus 3.png"/>
+    <ImageBrush x:Key="PlusImage" ImageSource="/Resources/Images/Icon/plus.png"/>
+    <ImageBrush x:Key="Plus1Image" ImageSource="/Resources/Images/Icon/plus 1.png"/>
+    <ImageBrush x:Key="Plus2Image" ImageSource="/Resources/Images/Icon/plus 2.png"/>
+    <ImageBrush x:Key="Plus3Image" ImageSource="/Resources/Images/Icon/plus 3.png"/>
+
+    <ImageBrush x:Key="StartImage" ImageSource="/Resources/Images/Icon/start.png"/>
+    <ImageBrush x:Key="StopImage" ImageSource="/Resources/Images/Icon/stop.png"/>
+
+    <ImageBrush x:Key="ChartImage" ImageSource="/Resources/Images/Icon/chart.png"/>
+    <ImageBrush x:Key="EqualizerImage" ImageSource="/Resources/Images/Icon/equaliser 1.png"/>
+    <ImageBrush x:Key="FlashOffImage" ImageSource="/Resources/Images/Icon/flash off.png"/>
+    <ImageBrush x:Key="FlashOnImage" ImageSource="/Resources/Images/Icon/flash on.png"/>
+    <ImageBrush x:Key="FlashImage" ImageSource="/Resources/Images/Icon/flash.png"/>
+    <ImageBrush x:Key="InfoImage" ImageSource="/Resources/Images/Icon/info.png"/>
+    <ImageBrush x:Key="LCDImage" ImageSource="/Resources/Images/Icon/lcd.png"/>
+    <ImageBrush x:Key="LinkImage" ImageSource="/Resources/Images/Icon/link.png"/>
+    <ImageBrush x:Key="NumListImage" ImageSource="/Resources/Images/Icon/list 1.png"/>
+    <ImageBrush x:Key="DotListImage" ImageSource="/Resources/Images/Icon/list.png"/>
+    <ImageBrush x:Key="UnlockImage" ImageSource="/Resources/Images/Icon/lock 1.png"/>
+    <ImageBrush x:Key="LockImage" ImageSource="/Resources/Images/Icon/lock.png"/>
+    <ImageBrush x:Key="MapPinMinusImage" ImageSource="/Resources/Images/Icon/map pin -.png"/>
+    <ImageBrush x:Key="MapPinPlusImage" ImageSource="/Resources/Images/Icon/map pin +.png"/>
+    <ImageBrush x:Key="MapPinImage" ImageSource="/Resources/Images/Icon/map pin.png"/>
+    <ImageBrush x:Key="RibbonMinusImage" ImageSource="/Resources/Images/Icon/ribbon -.png"/>
+    <ImageBrush x:Key="RibbonPlusImage" ImageSource="/Resources/Images/Icon/ribbon +.png"/>
+    <ImageBrush x:Key="TimerImage" ImageSource="/Resources/Images/Icon/timer 2.png"/>
+    <ImageBrush x:Key="VialImage" ImageSource="/Resources/Images/Icon/vial.png"/>
+    <ImageBrush x:Key="VideoPlayImage" ImageSource="/Resources/Images/Icon/video play.png"/>
+    <ImageBrush x:Key="WarningImage" ImageSource="/Resources/Images/Icon/warning 1.png"/>
+    <ImageBrush x:Key="WarningTriImage" ImageSource="/Resources/Images/Icon/warning.png"/>
+    <ImageBrush x:Key="WeatherImage" ImageSource="/Resources/Images/Icon/weather.png"/>
+    <ImageBrush x:Key="StarMinusImage" ImageSource="/Resources/Images/Icon/star -.png"/>
+    <ImageBrush x:Key="StarPlusImage" ImageSource="/Resources/Images/Icon/star +.png"/>
+    <ImageBrush x:Key="StarEmptyImage" ImageSource="/Resources/Images/Icon/star 1.png"/>
+    <ImageBrush x:Key="StarSolidImage" ImageSource="/Resources/Images/Icon/star.png"/>
+    <ImageBrush x:Key="ScienceImage" ImageSource="/Resources/Images/Icon/science.png"/>
+    <ImageBrush x:Key="SearchMinusImage" ImageSource="/Resources/Images/Icon/search -.png"/>
+    <ImageBrush x:Key="SearchPlusImage" ImageSource="/Resources/Images/Icon/search +.png"/>
+    <ImageBrush x:Key="SearchImage" ImageSource="/Resources/Images/Icon/search.png"/>
+    <ImageBrush x:Key="SecurityHalfImage" ImageSource="/Resources/Images/Icon/security 1.png"/>
+    <ImageBrush x:Key="SecurityCheckImage" ImageSource="/Resources/Images/Icon/security 2.png"/>
+    <ImageBrush x:Key="SecurityImage" ImageSource="/Resources/Images/Icon/security.png"/>
+    <ImageBrush x:Key="ToolsImage" ImageSource="/Resources/Images/Icon/settings 3.png"/>
+    <ImageBrush x:Key="ToolboxImage" ImageSource="/Resources/Images/Icon/settings 6.png"/>
+    <ImageBrush x:Key="BrightnessImage" ImageSource="/Resources/Images/Icon/settings 7.png"/>
+    <ImageBrush x:Key="Brightness2Image" ImageSource="/Resources/Images/Icon/settings 8.png"/>
+    <ImageBrush x:Key="ContrastImage" ImageSource="/Resources/Images/Icon/settings 10.png"/>
+    <ImageBrush x:Key="TargetImage" ImageSource="/Resources/Images/Icon/target 1.png"/>
+    <ImageBrush x:Key="Target2Image" ImageSource="/Resources/Images/Icon/target.png"/>
+    <ImageBrush x:Key="CheckBoxImage" ImageSource="/Resources/Images/Icon/right 1.png"/>
+    <ImageBrush x:Key="CheckBox2Image" ImageSource="/Resources/Images/Icon/right 2.png"/>
+    <ImageBrush x:Key="CheckCircleImage" ImageSource="/Resources/Images/Icon/right 3.png"/>
+    <ImageBrush x:Key="CheckCircle2Image" ImageSource="/Resources/Images/Icon/right 4.png"/>
+    <ImageBrush x:Key="CheckImage" ImageSource="/Resources/Images/Icon/right.png"/>
+    <ImageBrush x:Key="HourglassBottomImage" ImageSource="/Resources/Images/Icon/sand clock 1.png"/>
+    <ImageBrush x:Key="HourglassTopImage" ImageSource="/Resources/Images/Icon/sand clock 2.png"/>
+    <ImageBrush x:Key="HourglassFullImage" ImageSource="/Resources/Images/Icon/sand clock.png"/>
+    <ImageBrush x:Key="BlockedImage" ImageSource="/Resources/Images/Icon/blocked.png"/>
+    <ImageBrush x:Key="UploadPackageImage" ImageSource="/Resources/Images/Icon/box 1.png"/>
+    <ImageBrush x:Key="DownloadPackageImage" ImageSource="/Resources/Images/Icon/box 2.png"/>
+    <ImageBrush x:Key="RecordImage" ImageSource="/Resources/Images/Icon/record.png"/>
+
+    <!-- File -->
+
+    <ImageBrush x:Key="DocMinusImage" ImageSource="/Resources/Images/File/doc -.png"/>
+    <ImageBrush x:Key="DocPlusImage" ImageSource="/Resources/Images/File/doc +.png"/>
+    <ImageBrush x:Key="DocChartImage" ImageSource="/Resources/Images/File/doc 1.png"/>
+    <ImageBrush x:Key="DocChart2Image" ImageSource="/Resources/Images/File/doc 2.png"/>
+    <ImageBrush x:Key="DocWordImage" ImageSource="/Resources/Images/File/doc 3.png"/>
+    <ImageBrush x:Key="DocXImage" ImageSource="/Resources/Images/File/doc 4.png"/>
+    <ImageBrush x:Key="DocBlankImage" ImageSource="/Resources/Images/File/doc 5.png"/>
+    <ImageBrush x:Key="DocBlankPlusImage" ImageSource="/Resources/Images/File/doc 6.png"/>
+    <ImageBrush x:Key="DocBlankMinusImage" ImageSource="/Resources/Images/File/doc 7.png"/>
+    <ImageBrush x:Key="DocBlankXImage" ImageSource="/Resources/Images/File/doc 8.png"/>
+    <ImageBrush x:Key="DocBlankStarImage" ImageSource="/Resources/Images/File/doc 9.png"/>
+    <ImageBrush x:Key="DocBlankUpImage" ImageSource="/Resources/Images/File/doc 10.png"/>
+    <ImageBrush x:Key="DocBlankDownImage" ImageSource="/Resources/Images/File/doc 11.png"/>
+    <ImageBrush x:Key="DocBlankEditImage" ImageSource="/Resources/Images/File/doc 12.png"/>
+    <ImageBrush x:Key="DocBlankZipImage" ImageSource="/Resources/Images/File/doc zip.png"/>
+    <ImageBrush x:Key="DocImage" ImageSource="/Resources/Images/File/doc.png"/>
+
+    <ImageBrush x:Key="FolderImage" ImageSource="/Resources/Images/File/folder.png"/>
+    <ImageBrush x:Key="FolderMinusImage" ImageSource="/Resources/Images/File/folder -.png"/>
+    <ImageBrush x:Key="FolderPlusImage" ImageSource="/Resources/Images/File/folder +.png"/>
+    <ImageBrush x:Key="FolderBlockedImage" ImageSource="/Resources/Images/File/folder blocked.png"/>
+    <ImageBrush x:Key="FolderLinkImage" ImageSource="/Resources/Images/File/folder link.png"/>
+    <ImageBrush x:Key="FolderLockImage" ImageSource="/Resources/Images/File/folder lock.png"/>
+    <ImageBrush x:Key="FolderStarImage" ImageSource="/Resources/Images/File/folder starred.png"/>
+    <ImageBrush x:Key="FolderCheckImage" ImageSource="/Resources/Images/File/folder tick.png"/>
+
+    <ImageBrush x:Key="PicImage" ImageSource="/Resources/Images/File/pic.png"/>
+    <ImageBrush x:Key="PicPlusImage" ImageSource="/Resources/Images/File/pic 1.png"/>
+    <ImageBrush x:Key="PicMinusImage" ImageSource="/Resources/Images/File/pic 2.png"/>
+    <ImageBrush x:Key="PicStackImage" ImageSource="/Resources/Images/File/pic 3.png"/>
+
+</ResourceDictionary>
