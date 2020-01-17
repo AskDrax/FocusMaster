@@ -36,11 +36,13 @@
             <Border x:Name="MainIcon" Grid.Column="0" Background="Azure" OpacityMask="{StaticResource StackImage}"/>
             <TextBlock x:Name="MainTitle" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" LineStackingStrategy="BlockLineHeight" FontFamily="Segoe UI Semibold" FontSize="14" VerticalAlignment="Center" Foreground="Azure" Text="Focus Master!"/>
             <StackPanel x:Name="ControlBoxStack" Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-                <Button x:Name="CloseButton" Width="32" VerticalAlignment="Stretch" Background="#FFA7A7A7" OpacityMask="{StaticResource CloseImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="CloseButton_Click"/>
-                <Button x:Name="MaximizeButton" Width="32" VerticalAlignment="Stretch" Background="#FFA7A7A7" OpacityMask="{StaticResource MaximizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MaximizeButton_Click"/>
-                <Button x:Name="MinimizeButton" Width="32" VerticalAlignment="Stretch" Background="#FFA7A7A7" OpacityMask="{StaticResource MinimizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MinimizeButton_Click"/>
+                <Button x:Name="CloseButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource CloseImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="CloseButton_Click"/>
+                <Button x:Name="MaximizeButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource MaximizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MaximizeButton_Click"/>
+                <Button x:Name="MinimizeButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource MinimizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MinimizeButton_Click"/>
+                <Button x:Name="SettingsButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource SettingsImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="SettingsButton_Click"/>
             </StackPanel>
         </Grid>
         <Border x:Name="ContentBorder" Grid.Row="1" Background="{StaticResource WindowBackgroundBrush}"/>
+        <Frame x:Name="ContentFrame" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

@@ -24,4 +24,6 @@
     <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource AlmostBlack}"/>
     <SolidColorBrush x:Key="WindowCaptionBackgroundBrush" Color="{StaticResource MediumGrey}"/>
 
+    <SolidColorBrush x:Key="TitleButtonBackgroundBrush" Color="{StaticResource LighterGrey}"/>
+
 </ResourceDictionary>

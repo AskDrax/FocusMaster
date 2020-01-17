@@ -29,6 +29,10 @@ namespace FocusMaster
 
         public IntPtr HWND;
 
+        public NavigationService NavService;
+        public Pages.StartPage StartPage;
+        public Pages.SettingsPage SettingsPage;
+
         #region ControlBox
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -74,6 +78,17 @@ namespace FocusMaster
         {
             HWND = new WindowInteropHelper(this).Handle;
             WindowHelper.FixWindowStyle(HWND);
+
+            NavService = ContentFrame.NavigationService;
+            StartPage = new Pages.StartPage();
+            SettingsPage = new Pages.SettingsPage();
+
+            ContentFrame.Navigate(StartPage);
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.Navigate(SettingsPage);
         }
     }
 }
