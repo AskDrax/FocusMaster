@@ -8,8 +8,33 @@
         Title="FocusMaster!" 
         Height="450" Width="800"
         MinHeight="240" MinWidth="320"
+        BorderThickness="1,1,1,1"
+        Background="{StaticResource WindowBackgroundBrush}"
+        BorderBrush="{StaticResource WindowBorderBrush}"
+        WindowStyle="None"
+        RenderOptions.BitmapScalingMode="Fant"
+        AllowsTransparency="True"
         >
-    <Grid>
-
+    <WindowChrome.WindowChrome>
+        <WindowChrome x:Name="chrome"
+                      CaptionHeight="35"
+                      ResizeBorderThickness="5"
+                      />
+    </WindowChrome.WindowChrome>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="CaptionBorder" Grid.Row="0" Background="{StaticResource WindowCaptionBackgroundBrush}"/>
+        <Grid x:Name="CaptionGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="180"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="MainIcon" Grid.Column="0" Background="Azure" OpacityMask="{StaticResource StackImage}"/>
+            <TextBlock x:Name="MainTitle" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" LineStackingStrategy="BlockLineHeight" FontFamily="Segoe UI Semibold" FontSize="14" VerticalAlignment="Center" Foreground="Azure" Text="Focus Master!"/>
+        </Grid>
     </Grid>
 </Window>
