@@ -221,6 +221,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WinLib\WinLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\Control\circle.png" />
     <Resource Include="Resources\Images\Control\circle_invert.png" />
     <Resource Include="Resources\Images\Control\close.png" />

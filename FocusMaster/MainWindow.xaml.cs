@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Interop;
+using WinLib;
 
 namespace FocusMaster
 {
@@ -24,6 +26,8 @@ namespace FocusMaster
         {
             InitializeComponent();
         }
+
+        public IntPtr HWND;
 
         #region ControlBox
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -65,5 +69,11 @@ namespace FocusMaster
         }
 
         #endregion
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            HWND = new WindowInteropHelper(this).Handle;
+            WindowHelper.FixWindowStyle(HWND);
+        }
     }
 }

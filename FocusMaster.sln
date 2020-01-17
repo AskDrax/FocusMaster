@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FocusMaster", "FocusMaster\FocusMaster.csproj", "{B88F9628-7270-48E2-8CEC-0D85C7DE59D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{38C8BB03-FCEB-40ED-90C0-8655DD9B15FC} = {38C8BB03-FCEB-40ED-90C0-8655DD9B15FC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinLib", "WinLib\WinLib.csproj", "{38C8BB03-FCEB-40ED-90C0-8655DD9B15FC}"
 EndProject
