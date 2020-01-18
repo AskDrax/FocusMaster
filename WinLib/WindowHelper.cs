@@ -15,7 +15,7 @@ using System.Windows.Threading;
 namespace WinLib
 {
     public static class WindowHelper
-    {
+    { 
         public static ObservableCollection<AWindow> windowList { get; set; }
 
         public static IntPtr DesktopWindowHandle;
@@ -134,6 +134,13 @@ namespace WinLib
             info.cbSize = (uint)Marshal.SizeOf(info);
             bool gotInfo = GetWindowInfo(hWnd, ref info);
             theWINDOW.info = info;
+
+            uint threadId;
+            GetWindowThreadProcessId(hWnd, out threadId);
+            theWINDOW.threadProcessId = threadId;
+
+            GUITHREADINFO guiInfo = GetWindowGUIThreadInfo(hWnd);
+            theWINDOW.guiThreadInfo = guiInfo;
 
             return theWINDOW;
         }
@@ -436,6 +443,17 @@ namespace WinLib
             return baseClassName;
         }
 
+        public static GUITHREADINFO GetWindowGUIThreadInfo(IntPtr hwnd)
+        {
+            uint processId;
+            GetWindowThreadProcessId(hwnd, out processId);
+
+            GUITHREADINFO guithreadinfo = new GUITHREADINFO(true);
+            GetGUIThreadInfo(processId, out guithreadinfo);
+
+            return guithreadinfo;
+        }
+
         public static Icon GetAppIcon(IntPtr hwnd)
         {
             IntPtr iconHandle = SendMessage(hwnd, ICON.WM_GETICON, ICON.ICON_BIG, 0);
@@ -462,7 +480,7 @@ namespace WinLib
             bool checkIcon = true;
 
             uint processId;
-            WindowHelper.GetWindowThreadProcessId(hwnd, out processId);
+            GetWindowThreadProcessId(hwnd, out processId);
             Process proc = new Process();
             proc = Process.GetProcessById((int)processId);
             string path;
@@ -659,6 +677,9 @@ namespace WinLib
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
+
         [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
         private static extern int SetWindowLong32(HandleRef hWnd, int nIndex, int dwNewLong);
 
@@ -681,6 +702,9 @@ namespace WinLib
         public static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
 
         [DllImport("user32.dll")]
+        public static extern bool GetGUIThreadInfo(uint idThread, out GUITHREADINFO pgui);
+
+        [DllImport("user32.dll")]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
         [DllImport("user32.dll")]
@@ -688,8 +712,6 @@ namespace WinLib
 
         [DllImport("user32.dll")]
         public static extern bool UnhookWinEvent(IntPtr hWinEventHook);
-
-
 
         [DllImport("user32.dll")]
         public static extern bool UpdateWindow(IntPtr hWnd);

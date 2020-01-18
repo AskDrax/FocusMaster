@@ -13,7 +13,7 @@
         BorderBrush="{StaticResource WindowBorderBrush}"
         WindowStyle="None"
         RenderOptions.BitmapScalingMode="Fant"
-        AllowsTransparency="True" StateChanged="Window_StateChanged" Loaded="Window_Loaded"
+        AllowsTransparency="True" StateChanged="Window_StateChanged" Loaded="Window_Loaded" Closing="Window_Closing"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome x:Name="chrome"

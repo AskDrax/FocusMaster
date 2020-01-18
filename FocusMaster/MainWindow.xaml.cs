@@ -32,6 +32,9 @@ namespace FocusMaster
         public NavigationService NavService;
         public Pages.StartPage StartPage;
         public Pages.SettingsPage SettingsPage;
+        public Pages.LogPage LogPage;
+
+        public EventManager EventManager;
 
         #region ControlBox
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -81,6 +84,10 @@ namespace FocusMaster
 
             StartPage = new Pages.StartPage();
             SettingsPage = new Pages.SettingsPage();
+            LogPage = new Pages.LogPage();
+
+            EventManager = new EventManager();
+            EventManager.Initialize();
 
             NavService = ContentFrame.NavigationService;
             ContentFrame.Navigate(StartPage);
@@ -89,6 +96,11 @@ namespace FocusMaster
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.Navigate(SettingsPage);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            EventManager.Dispose();
         }
     }
 }

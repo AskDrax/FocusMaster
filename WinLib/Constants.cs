@@ -186,6 +186,16 @@ namespace WinLib
         WM_WINDOWPOSCHANGING = 0x0046;
     }
 
+    //https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-mouseactivate
+    public static class MA
+    {
+        public static readonly int
+        MA_ACTIVATE = 1,
+        MA_ACTIVATEANDEAT = 2,
+        MA_NOACTIVATE = 3,
+        MA_NOACTIVATEANDEAT = 4;
+    }
+
     //https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos
     public static class HWND
     {
@@ -194,6 +204,27 @@ namespace WinLib
         HWND_NOTOPMOST = new IntPtr(-2),
         HWND_TOP = new IntPtr(0),
         HWND_TOPMOST = new IntPtr(-1);
+    }
+
+    //https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-guithreadinfo
+    public static class GUI
+    {
+        public static readonly uint
+        GUI_CARETBLINKING = 0x00000001,
+        GUI_INMENUMODE = 0x00000004,
+        GUI_INMOVESIZE = 0x00000002,
+        GUI_POPUPMENUMODE = 0x00000010,
+        GUI_SYSTEMMENUMODE = 0x00000008;
+    }
+
+    //https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getguithreadinfo
+    public static class CURSOR
+    {
+        public static readonly int
+        CURSOR_LTR = 0xf00c,
+        CURSOR_RTL = 0xf00d,
+        CURSOR_THAI = 0xf00e,
+        CURSOR_USA = 0xfff;
     }
 
     //https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindow
@@ -395,6 +426,26 @@ namespace WinLib
          : this()   // Allows automatic initialization of "cbSize" with "new WINDOWINFO(null/true/false)".
         {
             cbSize = (UInt32)(Marshal.SizeOf(typeof(WINDOWINFO)));
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct GUITHREADINFO
+    {
+        public uint cbSize;
+        public uint flags;
+        public IntPtr hwndActive;
+        public IntPtr hwndFocus;
+        public IntPtr hwndCapture;
+        public IntPtr hwndMenuOwner;
+        public IntPtr hwndMoveSize;
+        public IntPtr hwndCaret;
+        public RECT rcCaret;
+
+        public GUITHREADINFO(Boolean? filler)
+         : this()   //Allows automatic initialization of "cbSize" with "new GUITHREADINFO(null/true/false)".
+        {
+            cbSize = (UInt32)(Marshal.SizeOf(typeof(GUITHREADINFO)));
         }
     }
 

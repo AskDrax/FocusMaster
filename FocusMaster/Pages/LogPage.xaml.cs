@@ -11,31 +11,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FocusMaster.Pages.SettingsPages
+namespace FocusMaster.Pages
 {
     /// <summary>
-    /// Interaction logic for LogsPage.xaml
+    /// Interaction logic for LogPage.xaml
     /// </summary>
-    public partial class LogsPage : Page
+    public partial class LogPage : Page
     {
-        public LogsPage()
+        public LogPage()
         {
             InitializeComponent();
+            DataContext = this;
         }
-
-        public MainWindow MainWindow { get; set; }
-
-        public NavigationService NavService;
-        public LogPage LogPage;
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindow = (MainWindow)Application.Current.MainWindow;
+            logListBox.ItemsSource = EventManager.CurrentLog.FilterView;
+        }
 
-            LogPage = MainWindow.LogPage;
-
-            NavService = LogFrame.NavigationService;
-            LogFrame.Navigate(LogPage);
+        public void ScrollToCurrent()
+        {
+            logListBox.SelectedIndex = logListBox.Items.Count - 1;
+            logListBox.ScrollIntoView(logListBox.SelectedItem);
         }
     }
 }

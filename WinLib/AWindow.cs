@@ -16,6 +16,8 @@ namespace WinLib
         public string title { get; set; }
         public string className { get; set; }
         public string baseClassName { get; set; }
+        public uint threadProcessId { get; set; }
+        public GUITHREADINFO guiThreadInfo { get; set; }
         public IntPtr savedParent { get; set; }
         public IntPtr savedStyle { get; set; }
         public AutomationElement automationElement { get; set; }
