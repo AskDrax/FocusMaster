@@ -79,10 +79,10 @@ namespace FocusMaster
             HWND = new WindowInteropHelper(this).Handle;
             WindowHelper.FixWindowStyle(HWND);
 
-            NavService = ContentFrame.NavigationService;
             StartPage = new Pages.StartPage();
             SettingsPage = new Pages.SettingsPage();
 
+            NavService = ContentFrame.NavigationService;
             ContentFrame.Navigate(StartPage);
         }
 

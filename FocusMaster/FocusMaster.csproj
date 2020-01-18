@@ -56,6 +56,7 @@
     <None Remove="Resources\Images\Icon\box 2.png" />
     <None Remove="Resources\Images\Icon\box.png" />
     <None Remove="Resources\Images\Icon\chart.png" />
+    <None Remove="Resources\Images\Icon\command.png" />
     <None Remove="Resources\Images\Icon\equaliser 1.png" />
     <None Remove="Resources\Images\Icon\flash off.png" />
     <None Remove="Resources\Images\Icon\flash on.png" />
@@ -274,6 +275,7 @@
     <Resource Include="Resources\Images\Icon\box 2.png" />
     <Resource Include="Resources\Images\Icon\box.png" />
     <Resource Include="Resources\Images\Icon\chart.png" />
+    <Resource Include="Resources\Images\Icon\command.png" />
     <Resource Include="Resources\Images\Icon\equaliser 1.png" />
     <Resource Include="Resources\Images\Icon\flash off.png" />
     <Resource Include="Resources\Images\Icon\flash on.png" />

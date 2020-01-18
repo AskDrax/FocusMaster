@@ -4,11 +4,41 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FocusMaster.Pages"
+      xmlns:con="clr-namespace:FocusMaster.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SettingsPage">
+      Title="SettingsPage" Loaded="Page_Loaded">
 
-    <Grid>
-        <Label Content="SettingsPage.xaml" Foreground="Azure"/>
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="CaptionBorder" Grid.Row="0" Background="{StaticResource PageCaptionBackgroundBrush}"/>
+        <Grid x:Name="CaptionGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="64"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="SettingsIcon" Grid.Column="0" Width="64" Height="64" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource PageCaptionIconBackgroundBrush}" OpacityMask="{StaticResource SettingsImage}"/>
+            <TextBlock x:Name="CaptionText" Grid.Column="1" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Azure" Text="Settings" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid x:Name="ContentGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="Splitter" Grid.Column="1" Background="{StaticResource ButtonHighlightBrush}"/>
+            <StackPanel x:Name="HeaderStack" Grid.Column="0" Orientation="Vertical">
+                <con:ImageTextButton x:Name="HomeButton" Style="{StaticResource TextButtonStyle}" Height="48" IconAreaWidth="48" ForegroundImage="{StaticResource HomeImage}" Background="Transparent" Foreground="{StaticResource PageCaptionIconBackgroundBrush}" Text="Home" FontSize="16" IconBGColor="Transparent" TextFGColor="Azure" Click="HomeButton_Click"/>
+                <con:ImageTextButton x:Name="DisplaysButton" Style="{StaticResource TextButtonStyle}" Height="48" IconAreaWidth="48" ForegroundImage="{StaticResource LCDImage}" Background="Transparent" Foreground="{StaticResource PageCaptionIconBackgroundBrush}" Text="Display(s)" FontSize="16" IconBGColor="Transparent" TextFGColor="Azure" Click="DisplaysButton_Click"/>
+                <con:ImageTextButton x:Name="WindowsButton" Style="{StaticResource TextButtonStyle}" Height="48" IconAreaWidth="48" ForegroundImage="{StaticResource WindowImage}" Background="Transparent" Foreground="{StaticResource PageCaptionIconBackgroundBrush}" Text="Windows" FontSize="16" IconBGColor="Transparent" TextFGColor="Azure" Click="WindowsButton_Click"/>
+                <con:ImageTextButton x:Name="AutomationButton" Style="{StaticResource TextButtonStyle}" Height="48" IconAreaWidth="48" ForegroundImage="{StaticResource WandImage}" Background="Transparent" Foreground="{StaticResource PageCaptionIconBackgroundBrush}" Text="Automation" FontSize="16" IconBGColor="Transparent" TextFGColor="Azure" Click="AutomationButton_Click"/>
+                <con:ImageTextButton x:Name="LogsButton" Style="{StaticResource TextButtonStyle}" Height="48" IconAreaWidth="48" ForegroundImage="{StaticResource WindowConsoleImage}" Background="Transparent" Foreground="{StaticResource PageCaptionIconBackgroundBrush}" Text="Logs" FontSize="16" IconBGColor="Transparent" TextFGColor="Azure" Click="LogsButton_Click"/>
+                <con:ImageTextButton x:Name="ExperimentalButton" Style="{StaticResource TextButtonStyle}" Height="48" IconAreaWidth="48" ForegroundImage="{StaticResource VialImage}" Background="Transparent" Foreground="{StaticResource PageCaptionIconBackgroundBrush}" Text="Experimental" FontSize="16" IconBGColor="Transparent" TextFGColor="Azure" Click="ExperimentalButton_Click"/>
+            </StackPanel>
+            <Frame x:Name="SettingsFrame" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"/>
+        </Grid>
     </Grid>
 </Page>

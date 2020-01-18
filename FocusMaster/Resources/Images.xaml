@@ -67,6 +67,7 @@
     <ImageBrush x:Key="AddImage" ImageSource="/Resources/Images/Icon/add.png"/>
     <ImageBrush x:Key="WandImage" ImageSource="/Resources/Images/Icon/wand.png"/>
     <ImageBrush x:Key="WindowImage" ImageSource="/Resources/Images/Icon/window.png"/>
+    <ImageBrush x:Key="WindowConsoleImage" ImageSource="/Resources/Images/Icon/command.png"/>
     <ImageBrush x:Key="WindowInfoImage" ImageSource="/Resources/Images/Icon/window_info.png"/>
     <ImageBrush x:Key="PowerImage" ImageSource="/Resources/Images/Icon/power button.png"/>
 
