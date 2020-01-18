@@ -42,13 +42,9 @@ namespace FocusMaster
             LogEntry previousLogEntry;
 
             if (LogEntries.Count == 0)
-            {
-                previousLogEntry = new LogEntry(LogEntryType.ApplicationEvent, "Log Started...");
-            }
-            else
-            {
-                previousLogEntry = LogEntries.Last();
-            }
+                LogEntries.Add(new LogEntry(LogEntryType.ApplicationEvent, "Log Started..."));
+
+            previousLogEntry = LogEntries.Last();
                 
             LogEntry newLogEntry = new LogEntry(type, text);
             if (newLogEntry.FullText != previousLogEntry.FullText)
