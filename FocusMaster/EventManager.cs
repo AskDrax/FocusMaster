@@ -73,7 +73,15 @@ namespace FocusMaster
             if (CurrentLog == null)
             {
                 CurrentLog = new Log();
+                CurrentLog.FilterBy = new LogEntryType[]
+                {
+                    LogEntryType.None,
+                    LogEntryType.ApplicationEvent,
+                    LogEntryType.WindowsEvent
+                };
+                CurrentLog.FilterView.Refresh();
             }
+            
 
             WindowHelper.windowList = new ObservableCollection<AWindow>();
             WindowHelper.EnumAllWindows();
