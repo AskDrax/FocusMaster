@@ -152,6 +152,13 @@ namespace FocusMaster.Controls
                 new FrameworkPropertyMetadata(null,
                     FrameworkPropertyMetadataOptions.AffectsRender));
 
+        public static readonly DependencyProperty ToggleableProperty =
+            DependencyProperty.Register(
+                "Toggleable",
+                typeof(bool),
+                typeof(ImageTextButton),
+                new PropertyMetadata(true));
+
         public Border BackgroundBorder
         {
             get { return (Border)GetValue(BackgroundBorderProperty); }
@@ -230,6 +237,12 @@ namespace FocusMaster.Controls
             set { SetValue(TextAreaWidthProperty, value); }
         }
 
+        public bool Toggleable
+        {
+            get { return (bool)GetValue(ToggleableProperty); }
+            set { SetValue(ToggleableProperty, value); }
+        }
+
         private void UpdateStates(bool useTransitions)
         {
             if (IsFocused)
@@ -248,7 +261,7 @@ namespace FocusMaster.Controls
             }
             else
             {
-                if (IsChecked == false)
+                if (Toggleable == false || IsChecked == false)
                     VisualStateManager.GoToState(this, "Unhovered", useTransitions);
             }
 
@@ -261,13 +274,16 @@ namespace FocusMaster.Controls
                 VisualStateManager.GoToState(this, "Unpressed", useTransitions);
             }
 
-            if (IsChecked == true)
+            if (Toggleable == true)
             {
-                VisualStateManager.GoToState(this, "Pressed", useTransitions);
-            }
-            else
-            {
-                VisualStateManager.GoToState(this, "Unpressed", useTransitions);
+                if (IsChecked == true)
+                {
+                    VisualStateManager.GoToState(this, "Pressed", useTransitions);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "Unpressed", useTransitions);
+                }
             }
         }
 
@@ -292,22 +308,18 @@ namespace FocusMaster.Controls
         protected override void OnMouseLeave(MouseEventArgs e)
         {
             base.OnMouseLeave(e);
-            if (IsPressed)
-                IsPressed = false;
             UpdateStates(true);
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            IsPressed = true;
             UpdateStates(true);
         }
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonUp(e);
-            IsPressed = false;
             if (IsChecked == false)
                 IsChecked = true;
             UpdateStates(true);

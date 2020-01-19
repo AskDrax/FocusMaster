@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinLib;
 
 namespace FocusMaster.Pages.SettingsPages
 {
@@ -21,6 +23,27 @@ namespace FocusMaster.Pages.SettingsPages
         public WindowsPage()
         {
             InitializeComponent();
+
+            MainWindow = (MainWindow)Application.Current.MainWindow;
+        }
+
+        public MainWindow MainWindow { get; set; }
+
+        private void windowListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            await refreshList();
+            VisualStateManager.GoToState(RefreshButton, "Unhovered", true);
+        }
+
+        private async Task<bool> refreshList()
+        {
+            await MainWindow.Dispatcher.InvokeAsync(() => WindowHelper.EnumAllWindows());
+            return true;
         }
     }
 }

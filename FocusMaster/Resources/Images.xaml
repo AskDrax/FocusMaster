@@ -47,6 +47,9 @@
     <ImageBrush x:Key="ArrowUndoImage" ImageSource="/Resources/Images/Navigation/arrow undo.png"/>
     <ImageBrush x:Key="ArrowRedoImage" ImageSource="/Resources/Images/Navigation/arrow redo.png"/>
 
+    <ImageBrush x:Key="ArrowRefreshImage" ImageSource="/Resources/Images/Navigation/refresh.png"/>
+    <ImageBrush x:Key="ArrowReloadImage" ImageSource="/Resources/Images/Navigation/reload.png"/>
+
     <!-- Layout -->
 
     <ImageBrush x:Key="StackAbove" ImageSource="/Resources/Images/Layout/stack above.png"/>

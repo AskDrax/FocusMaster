@@ -4,11 +4,38 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FocusMaster.Pages.SettingsPages"
+      xmlns:con="clr-namespace:FocusMaster.Controls"
+      xmlns:win="clr-namespace:WinLib;assembly=WinLib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WindowsPage">
 
-    <Grid>
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*" MinWidth="140" MaxWidth="300"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
         <TextBlock x:Name="HeaderText" Margin="2,-48,0,0" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Azure" Text="/  Windows" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <GridSplitter x:Name="gridSplitter" Grid.Column="1" Width="5" Background="{StaticResource ButtonHighlightBrush}" ResizeBehavior="PreviousAndNext"/>
+        <Grid x:Name="WindowListGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <ListBox x:Name="windowListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:WindowHelper.windowList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="windowListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Height="24">
+                            <Image Width="16" Height="16" Source="{Binding iconImage}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <con:ImageTextButton x:Name="RefreshButton" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Toggleable="False" Height="28" IconAreaWidth="28" ForegroundImage="{StaticResource ArrowRefreshImage}" Background="Transparent" Foreground="{StaticResource PageCaptionBackgroundBrush}" Text="Refresh List" FontSize="14" IconBGColor="Transparent" TextFGColor="Azure" Click="RefreshButton_Click"/>
+        </Grid>
+        
     </Grid>
 </Page>

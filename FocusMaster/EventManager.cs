@@ -323,6 +323,8 @@ namespace FocusMaster
 
         protected virtual void OnForegroundChanged(object sender, WinEventProcEventArgs e)
         {
+            MouseInput.GetMousePoint();
+
             lastForegroundHWND = currentForegroundHWND;
             currentForegroundHWND = e._hwnd;
 
@@ -330,11 +332,13 @@ namespace FocusMaster
             currentForegroundName = WindowHelper.GetTitleOfWindow(e._hwnd);
 
             if (lastForegroundHWND != currentForegroundHWND)
-                CurrentLog.Add(LogEntryType.WindowsEvent, "Foreground Window Changed: from " + lastForegroundName + " (" + lastForegroundHWND.ToString() + ") to " + currentForegroundName + " (" + currentForegroundHWND.ToString() + ")");
+                CurrentLog.Add(LogEntryType.WindowsEvent, "Foreground Window Changed: from " + lastForegroundName + " (" + lastForegroundHWND.ToString() + ") to " + currentForegroundName + " (" + currentForegroundHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
         }
 
         protected virtual void OnFocusChanged(object sender, WinEventProcEventArgs e)
         {
+            MouseInput.GetMousePoint();
+
             lastFocusedHWND = currentFocusedHWND;
             currentFocusedHWND = e._hwnd;
 
@@ -342,7 +346,7 @@ namespace FocusMaster
             currentFocusedName = WindowHelper.GetTitleOfWindow(e._hwnd);
 
             if (lastFocusedHWND != currentFocusedHWND)
-                CurrentLog.Add(LogEntryType.WindowsEvent, "Focused Window Changed: from " + lastFocusedName + " (" + lastFocusedHWND.ToString() + ") to " + currentFocusedName + " (" + currentFocusedHWND.ToString() + ")");
+                CurrentLog.Add(LogEntryType.WindowsEvent, "Focused Window Changed: from " + lastFocusedName + " (" + lastFocusedHWND.ToString() + ") to " + currentFocusedName + " (" + currentFocusedHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
         }
 
         protected virtual void OnMoveSizeStart(object sender, WinEventProcEventArgs e)
