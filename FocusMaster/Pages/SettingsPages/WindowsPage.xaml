@@ -12,7 +12,7 @@
 
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*" MinWidth="140" MaxWidth="300"/>
+            <ColumnDefinition Width="1.5*" MinWidth="160" MaxWidth="300"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="windowListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:WindowHelper.windowList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="windowListBox_SelectionChanged">
+            <ListBox x:Name="windowListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:WindowHelper.windowList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True" SelectionChanged="windowListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Height="24">
@@ -35,6 +35,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <con:ImageTextButton x:Name="RefreshButton" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Toggleable="False" Height="28" IconAreaWidth="28" ForegroundImage="{StaticResource ArrowRefreshImage}" Background="Transparent" Foreground="{StaticResource PageCaptionBackgroundBrush}" Text="Refresh List" FontSize="14" IconBGColor="Transparent" TextFGColor="Azure" Click="RefreshButton_Click"/>
+            <CheckBox x:Name="ListenForOpenCloseButton" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="28" FontSize="14" FontFamily="Segoe UI Semibold" Foreground="Azure" Content="Window Open / Close" Checked="ListenForOpenCloseButton_Checked" Unchecked="ListenForOpenCloseButton_Unchecked"/>
         </Grid>
         
     </Grid>

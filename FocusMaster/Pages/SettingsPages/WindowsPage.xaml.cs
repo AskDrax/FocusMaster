@@ -45,5 +45,16 @@ namespace FocusMaster.Pages.SettingsPages
             await MainWindow.Dispatcher.InvokeAsync(() => WindowHelper.EnumAllWindows());
             return true;
         }
+
+        private void ListenForOpenCloseButton_Checked(object sender, RoutedEventArgs e)
+        {
+            WindowHelper.ListenForWindowOpen();
+            WindowHelper.ListenForWindowClose();
+        }
+
+        private void ListenForOpenCloseButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            WindowHelper.CloseAutomationEvents();
+        }
     }
 }
