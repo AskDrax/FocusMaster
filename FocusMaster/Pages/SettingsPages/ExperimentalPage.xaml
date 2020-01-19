@@ -8,7 +8,12 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ExperimentalPage">
 
-    <Grid>
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <TextBlock x:Name="HeaderText" Margin="2,-48,0,0" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Azure" Text="/  Experimental" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <CheckBox x:Name="NoClickOnlyFocusCheckBox" Grid.Column="1" Width="180" Height="32" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Content="No Click, only Focus!" Checked="NoClickOnlyFocusCheckBox_Checked" Unchecked="NoClickOnlyFocusCheckBox_Unchecked"/>
     </Grid>
 </Page>

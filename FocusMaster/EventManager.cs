@@ -18,6 +18,7 @@ namespace FocusMaster
             Initialize();
         }
 
+        public static bool NoClickOnlyFocus;
         public static MainWindow MainWindow { get; set; }
         public static Log CurrentLog { get; set; }
         public static MouseInput MouseInput { get; set; }
@@ -67,6 +68,8 @@ namespace FocusMaster
 
         public void Initialize()
         {
+            NoClickOnlyFocus = false;
+
             MainWindow = (MainWindow)Application.Current.MainWindow;
             DesktopHWND = WindowHelper.GetDesktopWindow();
 
@@ -91,6 +94,7 @@ namespace FocusMaster
             {
                 MouseInput = new MouseInput();
                 MouseInput.Install();
+                MouseInput.LeftButtonDown += new MouseInput.MouseHookCallback(OnLeftMouseDown);
             }
 
             if (UpdateTimer == null || SnapTimer == null)
@@ -162,6 +166,7 @@ namespace FocusMaster
         {
             if (MouseInput != null)
             {
+                MouseInput.LeftButtonDown -= new MouseInput.MouseHookCallback(OnLeftMouseDown);
                 MouseInput.Uninstall();
             }
 
@@ -480,6 +485,21 @@ namespace FocusMaster
 
         protected virtual void OnMouseWindowChanged(object sender, MouseWindowEventArgs e)
         {
+            if (NoClickOnlyFocus == true)
+            {
+                if (HWNDUnderMouse != currentForegroundHWND && WindowHelper.IsInWindowList(HWNDUnderMouse))
+                {
+                    MouseInput.supressNext = true;
+                    MouseInput.targetHWND = HWNDUnderMouse;
+                }
+                else
+                {
+                    MouseInput.supressNext = false;
+                }
+            }
+            
+            
+
             string name = WindowHelper.GetTitleOfWindow(e.HWND);
             CurrentLog.Add(LogEntryType.WindowsEvent, "Mouse is now over: " + name + " (" + e.HWND.ToString() + ") at " + e.MousePoint.ToString());
         }
@@ -524,6 +544,12 @@ namespace FocusMaster
             string draggingWindowTitle = WindowHelper.GetTitleOfWindow(e.DraggingHWND);
             string targetWindowTitle = WindowHelper.GetTitleOfWindow(e.ToHWND);
             CurrentLog.Add(LogEntryType.WindowsEvent, "Mouse Drag-Size-Dropped Window: " + draggingWindowTitle + " onto Window: " + targetWindowTitle + " at " + e.MousePoint.ToString());
+        }
+
+        protected virtual void OnLeftMouseDown(MouseInput.MSLLHOOKSTRUCT mouseStruct)
+        {
+
+            CurrentLog.Add(LogEntryType.None, "Mouse Left-Clicked at: X=" + mouseStruct.pt.x.ToString() + ",Y=" + mouseStruct.pt.y.ToString());
         }
     }
 

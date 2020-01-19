@@ -11,6 +11,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Windows.Automation;
 using System.Windows.Threading;
+using System.Linq;
 
 namespace WinLib
 {
@@ -24,7 +25,17 @@ namespace WinLib
         public delegate bool EnumDelegate(IntPtr hWnd, int lParam);
 
         public delegate void WinEventDelegate(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime);
+        
 
+        public static bool IsInWindowList(IntPtr hwnd)
+        {
+            AWindow awin = windowList.FirstOrDefault(awindow => awindow.hwnd == hwnd);
+            if (awin != null)
+            {
+                return true;
+            }
+            return false;
+        }
         public static void GetAllWindows()
         {
             windowList.Clear();
