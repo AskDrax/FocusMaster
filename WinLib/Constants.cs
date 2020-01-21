@@ -186,6 +186,14 @@ namespace WinLib
         WM_WINDOWPOSCHANGING = 0x0046;
     }
 
+    public static class MK
+    {
+        public static readonly int
+        MK_LButton = 0x0001,
+        MK_RButton = 0x0002,
+        MK_MButton = 0x0010;
+    }
+
     //https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-mouseactivate
     public static class MA
     {

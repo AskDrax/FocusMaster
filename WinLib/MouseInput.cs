@@ -69,6 +69,29 @@ namespace WinLib
             mouse_event((int)MouseEventFlags.RightDown, X, Y, 0, 0);
         }
 
+        public void SimulateRightUnclick()
+        {
+            GetMousePoint();
+            SimulateRightUnclick(mousePoint.X, mousePoint.Y);
+        }
+
+        public void SimulateRightUnclick(int X, int Y)
+        {
+            mouse_event((int)MouseEventFlags.RightUp, X, Y, 0, 0);
+        }
+
+        public void InjectLeftClick(IntPtr hwnd)
+        {
+            GetMousePoint();
+            var child = WindowHelper.GetRealChildControlFromPoint(hwnd, mousePoint);
+            var clientClickLocation = WindowHelper.ScreenToClient(child, mousePoint);
+
+            var lParamClickLocation = WindowHelper.MakeLParam(clientClickLocation.X, clientClickLocation.Y);
+
+            WindowHelper.PostMessage(new HandleRef(null, child), (uint)WM.WM_LBUTTONDOWN, new IntPtr(MK.MK_LButton), lParamClickLocation);
+            WindowHelper.PostMessage(new HandleRef(null, child), (uint)WM.WM_LBUTTONUP, new IntPtr(MK.MK_LButton), lParamClickLocation);
+        }
+
         public void GetMousePoint()
         {
             previousMousePoint = mousePoint;
@@ -176,21 +199,7 @@ namespace WinLib
                 if (MouseMessages.WM_LBUTTONDOWN == (MouseMessages)wParam)
                     if (supressNext == true)
                     {
-                        if (simulateClick)
-                        {
-                            GetMousePoint();
-                            //var w = (mousePoint.Y << 16) | mousePoint.X;
-                            //WindowHelper.SendMessage(targetHWND, WM.WM_LBUTTONDOWN, 0x00000001, w);
-                            //WindowHelper.SendMessage(targetHWND, WM.WM_LBUTTONUP, 0x00000001, w);
-                            supressNext = false;
-                            SimulateLeftClick(mousePoint.X, mousePoint.Y);
-                            SimulateLeftUnclick(mousePoint.X, mousePoint.Y);
-                        }
-                        else
-                        {
-                            WindowHelper.SetForegroundWindow(targetHWND);
-                        }
-                        
+                        WindowHelper.SetForegroundWindow(targetHWND);                       
                         supressNext = false;
                         return new IntPtr(1);
                     }

@@ -490,23 +490,31 @@ namespace FocusMaster
             {
                 if (NoClickOnlyFocus)
                 {
-                    MouseInput.simulateClick = false;
                     MouseInput.supressNext = true;
                     MouseInput.targetHWND = HWNDUnderMouse;
                 }
                 else if (NoFocusOnlyClick)
                 {
-                    MouseInput.simulateClick = true;
-                    MouseInput.supressNext = true;
-                    MouseInput.targetHWND = HWNDUnderMouse;
+                    MouseInput.supressNext = false;
+                    WindowHelper.RemoveWindowStyleEx(LastHWNDUnderMouse, new IntPtr(WS_EX.WS_EX_NOACTIVATE));
+                    WindowHelper.AddWindowStyleEx(HWNDUnderMouse, new IntPtr(WS_EX.WS_EX_NOACTIVATE));
                 }
                 else
                 {
-                    MouseInput.simulateClick = false;
                     MouseInput.supressNext = false;
-                }
-                
+
+                    WindowHelper.RemoveWindowStyleEx(HWNDUnderMouse, new IntPtr(WS_EX.WS_EX_NOACTIVATE));
+                    WindowHelper.RemoveWindowStyleEx(LastHWNDUnderMouse, new IntPtr(WS_EX.WS_EX_NOACTIVATE));
+                }              
             }
+            else
+            {
+                MouseInput.supressNext = false;
+
+                WindowHelper.RemoveWindowStyleEx(HWNDUnderMouse, new IntPtr(WS_EX.WS_EX_NOACTIVATE));
+                WindowHelper.RemoveWindowStyleEx(LastHWNDUnderMouse, new IntPtr(WS_EX.WS_EX_NOACTIVATE));
+            }
+
             string name = WindowHelper.GetTitleOfWindow(e.HWND);
             CurrentLog.Add(LogEntryType.WindowsEvent, "Mouse is now over: " + name + " (" + e.HWND.ToString() + ") at " + e.MousePoint.ToString());
         }

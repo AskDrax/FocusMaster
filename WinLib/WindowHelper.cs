@@ -433,6 +433,36 @@ namespace WinLib
             }
         }
 
+        public static System.Drawing.Point ScreenToClient(IntPtr hwnd, System.Drawing.Point screenPoint)
+        {
+            var localCopy = new System.Drawing.Point();
+            if (ScreenToClient(hwnd, ref localCopy))
+            {
+                return localCopy;
+            }
+            return new System.Drawing.Point();
+        }
+
+        public static IntPtr GetRealChildControlFromPoint(IntPtr parent, System.Drawing.Point screenPoint)
+        {
+            IntPtr current = parent;
+            IntPtr child = IntPtr.Zero;
+
+            do
+            {
+                child = RealChildWindowFromPoint(current, ScreenToClient(current, screenPoint));
+
+                if (child == IntPtr.Zero || child == current)
+                {
+                    break;
+                }
+
+                current = child;
+            } while (true);
+
+            return current;
+        }
+
         public static string GetTitleOfWindow(IntPtr hwnd)
         {
             string title = "";
@@ -702,6 +732,11 @@ namespace WinLib
             SetCursorPos(x, y);
         }
 
+        public static IntPtr MakeLParam(int loWord, int hiWord)
+        {
+            return new IntPtr((hiWord << 16) | (loWord & 0xffff));
+        }
+
         #region Imports
 
         [DllImport("user32.dll")]
@@ -838,6 +873,12 @@ namespace WinLib
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetCursorPos(int x, int y);
+
+        [DllImport("user32.dll")]
+        public static extern bool ClientToScreen(IntPtr hWnd, ref System.Drawing.Point Point);
+
+        [DllImport("user32.dll")]
+        public static extern bool ScreenToClient(IntPtr hWnd, ref System.Drawing.Point screenPoint);
 
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
