@@ -8,7 +8,7 @@
       xmlns:win="clr-namespace:WinLib;assembly=WinLib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="WindowsPage">
+      Title="WindowsPage" Loaded="Page_Loaded">
 
     <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="windowListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:WindowHelper.windowList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="True" SelectionChanged="windowListBox_SelectionChanged">
+            <ListBox x:Name="windowListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:WindowHelper.windowList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="False" SelectionChanged="windowListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Height="24">
@@ -37,6 +37,31 @@
             <con:ImageTextButton x:Name="RefreshButton" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextButtonStyle}" Toggleable="False" Height="28" IconAreaWidth="28" ForegroundImage="{StaticResource ArrowRefreshImage}" Background="Transparent" Foreground="{StaticResource PageCaptionBackgroundBrush}" Text="Refresh List" FontSize="14" IconBGColor="Transparent" TextFGColor="Azure" Click="RefreshButton_Click"/>
             <CheckBox x:Name="ListenForOpenCloseButton" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="28" FontSize="14" FontFamily="Segoe UI Semibold" Foreground="Azure" Content="Window Open / Close" Checked="ListenForOpenCloseButton_Checked" Unchecked="ListenForOpenCloseButton_Unchecked"/>
         </Grid>
-        
+        <Grid x:Name="ContentGrid" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="MainStack" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top">
+                    <Image x:Name="IconImage" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64" Height="64"/>
+                    <TextBlock x:Name="TitleText" Grid.Column="0" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="Title"/>
+                    <TextBlock x:Name="HWNDText" Grid.Column="0" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="HWND"/>
+                    <TextBlock x:Name="StylesText" Grid.Column="0" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="Styles:"/>
+                    <ListBox x:Name="StylesListBox" Grid.Column="0" BorderThickness="0" FontSize="16" FontFamily="Segoe UI Semibold" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="DetailStack" Grid.Column="1" Margin="0,103,0,0" Orientation="Vertical" VerticalAlignment="Top">
+                    <TextBlock x:Name="ExStylesTitle" Grid.Column="1" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="Extended Styles:"/>
+                    <ListBox x:Name="ExStylesListBox" Grid.Column="1" BorderThickness="0" FontSize="16" FontFamily="Segoe UI Semibold" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    </ListBox>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

@@ -18,7 +18,8 @@ namespace FocusMaster
             Initialize();
         }
 
-        public static bool NoClickOnlyFocus;
+        public static bool NoClickOnlyFocus { get; set; }
+        public static bool NoFocusOnlyClick { get; set; }
         public static MainWindow MainWindow { get; set; }
         public static Log CurrentLog { get; set; }
         public static MouseInput MouseInput { get; set; }
@@ -485,21 +486,27 @@ namespace FocusMaster
 
         protected virtual void OnMouseWindowChanged(object sender, MouseWindowEventArgs e)
         {
-            if (NoClickOnlyFocus == true)
+            if (HWNDUnderMouse != currentForegroundHWND && WindowHelper.IsInWindowList(HWNDUnderMouse))
             {
-                if (HWNDUnderMouse != currentForegroundHWND && WindowHelper.IsInWindowList(HWNDUnderMouse))
+                if (NoClickOnlyFocus)
                 {
+                    MouseInput.simulateClick = false;
+                    MouseInput.supressNext = true;
+                    MouseInput.targetHWND = HWNDUnderMouse;
+                }
+                else if (NoFocusOnlyClick)
+                {
+                    MouseInput.simulateClick = true;
                     MouseInput.supressNext = true;
                     MouseInput.targetHWND = HWNDUnderMouse;
                 }
                 else
                 {
+                    MouseInput.simulateClick = false;
                     MouseInput.supressNext = false;
                 }
+                
             }
-            
-            
-
             string name = WindowHelper.GetTitleOfWindow(e.HWND);
             CurrentLog.Add(LogEntryType.WindowsEvent, "Mouse is now over: " + name + " (" + e.HWND.ToString() + ") at " + e.MousePoint.ToString());
         }

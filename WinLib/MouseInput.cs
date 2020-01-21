@@ -18,6 +18,7 @@ namespace WinLib
         private Timer timer;
 
         public IntPtr targetHWND { get; set; }
+        public bool simulateClick { get; set; }
         public bool supressNext { get; set; }
 
         public string mouseString
@@ -175,7 +176,21 @@ namespace WinLib
                 if (MouseMessages.WM_LBUTTONDOWN == (MouseMessages)wParam)
                     if (supressNext == true)
                     {
-                        WindowHelper.SetForegroundWindow(targetHWND);
+                        if (simulateClick)
+                        {
+                            GetMousePoint();
+                            //var w = (mousePoint.Y << 16) | mousePoint.X;
+                            //WindowHelper.SendMessage(targetHWND, WM.WM_LBUTTONDOWN, 0x00000001, w);
+                            //WindowHelper.SendMessage(targetHWND, WM.WM_LBUTTONUP, 0x00000001, w);
+                            supressNext = false;
+                            SimulateLeftClick(mousePoint.X, mousePoint.Y);
+                            SimulateLeftUnclick(mousePoint.X, mousePoint.Y);
+                        }
+                        else
+                        {
+                            WindowHelper.SetForegroundWindow(targetHWND);
+                        }
+                        
                         supressNext = false;
                         return new IntPtr(1);
                     }

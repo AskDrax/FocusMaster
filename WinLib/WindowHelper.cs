@@ -124,7 +124,8 @@ namespace WinLib
                 className = GetClassNameOfWindow(hWnd),
                 baseClassName = GetBaseClassNameOfWindow(hWnd),
                 savedParent = GetParent(hWnd),
-                savedStyle = SaveWindowStyle(hWnd),
+                savedStyle = GetWindowStyle(hWnd),
+                savedStyleEx = GetWindowStyleEx(hWnd),
                 automationElement = GetAutomationElementOfWindow(hWnd),
                 savedRECT = SaveWindowRect(hWnd),
                 niceRECT = SaveNiceWindowRect(hWnd),
@@ -152,6 +153,9 @@ namespace WinLib
 
             GUITHREADINFO guiInfo = GetWindowGUIThreadInfo(hWnd);
             theWINDOW.guiThreadInfo = guiInfo;
+
+            WindowStyles styles = new WindowStyles();
+            theWINDOW.windowStyles = styles.FromHWND(hWnd);
 
             return theWINDOW;
         }
@@ -234,15 +238,71 @@ namespace WinLib
             SetWindowLongPtr(new HandleRef(null, hwnd), GWL.GWL_EXSTYLE, new IntPtr((uint)extendedStyle | WS_EX.WS_EX_TRANSPARENT));
         }
 
-        public static IntPtr SaveWindowStyle(IntPtr hwnd)
+        public static IntPtr GetWindowStyle(IntPtr hwnd)
         {
-            IntPtr savedStyle = WindowHelper.GetWindowLongPtr(hwnd, GWL.GWL_STYLE);
+            IntPtr savedStyle = GetWindowLongPtr(hwnd, GWL.GWL_STYLE);
             return savedStyle;
+        }
+
+        public static IntPtr GetWindowStyleEx(IntPtr hwnd)
+        {
+            IntPtr savedStyleEx = GetWindowLongPtr(hwnd, GWL.GWL_EXSTYLE);
+            return savedStyleEx;
         }
 
         public static void SetWindowStyle(IntPtr hwnd, IntPtr style)
         {
             SetWindowLongPtr(new HandleRef(null, hwnd), GWL.GWL_STYLE, style);
+        }
+
+        public static void SetWindowStyleEx(IntPtr hwnd, IntPtr exstyle)
+        {
+            SetWindowLongPtr(new HandleRef(null, hwnd), GWL.GWL_EXSTYLE, exstyle);
+        }
+
+
+        public static void AddWindowStyle(IntPtr hwnd, IntPtr style)
+        {
+            uint savedStyle = (uint)GetWindowStyle(hwnd).ToInt64();
+            IntPtr newStyle = new IntPtr(savedStyle | (uint)style);
+
+            if ((savedStyle & (uint)style) == 0)
+            {
+                SetWindowStyle(hwnd, newStyle);
+            }
+        }
+
+        public static void AddWindowStyleEx(IntPtr hwnd, IntPtr exstyle)
+        {
+            uint savedStyle = (uint)GetWindowStyleEx(hwnd).ToInt64();
+            IntPtr newStyle = new IntPtr(savedStyle | (uint)exstyle);
+
+            if ((savedStyle & (uint)exstyle) == 0)
+            {
+                SetWindowStyleEx(hwnd, newStyle);
+            }      
+        }
+
+        public static void RemoveWindowStyle(IntPtr hwnd, IntPtr style)
+        {
+            uint savedStyle = (uint)GetWindowStyle(hwnd).ToInt64();
+            IntPtr newStyle = new IntPtr(savedStyle & ~(uint)style);
+
+            if ((savedStyle & (uint)style) != 0)
+            {
+                SetWindowStyle(hwnd, newStyle);
+            }         
+        }
+
+        public static void RemoveWindowStyleEx(IntPtr hwnd, IntPtr exstyle)
+        {
+            uint savedStyle = (uint)GetWindowStyleEx(hwnd).ToInt64();
+            IntPtr newStyle = new IntPtr(savedStyle & ~(uint)exstyle);
+
+            if ((savedStyle & (uint)exstyle) != 0)
+            {
+                SetWindowStyleEx(hwnd, newStyle);
+            }           
         }
 
         public static void GetNiceWindowRect(IntPtr hwnd, ref RECT ActiveRect)

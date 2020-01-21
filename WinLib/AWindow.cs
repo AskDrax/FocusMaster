@@ -20,6 +20,8 @@ namespace WinLib
         public GUITHREADINFO guiThreadInfo { get; set; }
         public IntPtr savedParent { get; set; }
         public IntPtr savedStyle { get; set; }
+        public IntPtr savedStyleEx { get; set; }
+        public WindowStyles windowStyles { get; set; }
         public AutomationElement automationElement { get; set; }
         public WINDOWPLACEMENT placement { get; set; }
         public RECT savedRECT { get; set; }
@@ -29,6 +31,5 @@ namespace WinLib
         public Icon icon { get; set; }
         public ImageSource iconImage { get; set; }
         public WINDOWINFO info { get; set; }
-
     }
 }

@@ -26,11 +26,23 @@ namespace FocusMaster.Pages.SettingsPages
         private void NoClickOnlyFocusCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             EventManager.NoClickOnlyFocus = true;
+            NoFocusOnlyClickCheckBox.IsChecked = false;
         }
 
         private void NoClickOnlyFocusCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
             EventManager.NoClickOnlyFocus = false;
+        }
+
+        private void NoFocusOnlyClickCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            EventManager.NoFocusOnlyClick = true;
+            NoClickOnlyFocusCheckBox.IsChecked = false;
+        }
+
+        private void NoFocusOnlyClickCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            EventManager.NoFocusOnlyClick = false;
         }
     }
 }
