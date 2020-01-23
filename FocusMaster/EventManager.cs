@@ -340,6 +340,8 @@ namespace FocusMaster
 
             if (lastForegroundHWND != currentForegroundHWND)
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Foreground Window Changed: from " + lastForegroundName + " (" + lastForegroundHWND.ToString() + ") to " + currentForegroundName + " (" + currentForegroundHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
+
+            OnStateChanged(sender, e);
         }
 
         protected virtual void OnFocusChanged(object sender, WinEventProcEventArgs e)
@@ -360,8 +362,6 @@ namespace FocusMaster
         {
             MouseInput.GetMousePoint();
 
-            
-
             string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
             AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
             if (awin != null)
@@ -370,11 +370,11 @@ namespace FocusMaster
                 WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
                 WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
 
-                //if (string.IsNullOrEmpty(windowName) == false && WindowHelper.IsWindow(e._hwnd))
+                //if (oldPlacement.showCmd != newPlacement.showCmd)
                 {
+                    //this is currently buggy as heck!
                     awin.placement = newPlacement;
-
-                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
+                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });                 
                 }
             }  
         }
@@ -495,7 +495,7 @@ namespace FocusMaster
             FromString = WindowHelper.ShowCmdToString(oldShowState);
             ToString = WindowHelper.ShowCmdToString(newShowState);
 
-            CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");
+            CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: " + WindowHelper.GetTitleOfWindow(e.HWND).ToString() + " from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");
         }
 
         protected virtual void OnWindowMoveStart(object sender, MouseWindowEventArgs e)
