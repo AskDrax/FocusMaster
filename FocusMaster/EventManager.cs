@@ -136,6 +136,7 @@ namespace FocusMaster
             RegisteredHooks.Add(new WinEventHook(EV.EVENT_SYSTEM_MOVESIZESTART, OnMoveSizeStart));
             RegisteredHooks.Add(new WinEventHook(EV.EVENT_SYSTEM_MOVESIZEEND, OnMoveSizeEnd));
             RegisteredHooks.Add(new WinEventHook(EV.EVENT_OBJECT_LOCATIONCHANGE, OnLocationChanged));
+            RegisteredHooks.Add(new WinEventHook(EV.EVENT_OBJECT_STATECHANGE, OnStateChanged));
 
             SetHooks();
         }
@@ -355,6 +356,29 @@ namespace FocusMaster
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Focused Window Changed: from " + lastFocusedName + " (" + lastFocusedHWND.ToString() + ") to " + currentFocusedName + " (" + currentFocusedHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
         }
 
+        protected virtual void OnStateChanged(object sender, WinEventProcEventArgs e)
+        {
+            MouseInput.GetMousePoint();
+
+            
+
+            string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            if (awin != null)
+            {
+                WINDOWPLACEMENT oldPlacement = awin.placement;
+                WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
+                WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
+
+                //if (string.IsNullOrEmpty(windowName) == false && WindowHelper.IsWindow(e._hwnd))
+                {
+                    awin.placement = newPlacement;
+
+                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
+                }
+            }  
+        }
+
         protected virtual void OnMoveSizeStart(object sender, WinEventProcEventArgs e)
         {
             MouseInput.GetMousePoint();
@@ -458,6 +482,20 @@ namespace FocusMaster
                 awin.title = e.newName;
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Window Name Changed: " + e.oldName + " to " + e.newName + " (" + e.HWND.ToString() + ")");
             }
+        }
+
+        protected virtual void OnWindowStateChanged(object sender, WindowStateChangedEventArgs e)
+        {
+            string FromString;
+            string ToString;
+
+            uint oldShowState = e.oldPlacement.showCmd;
+            uint newShowState = e.newPlacement.showCmd;
+
+            FromString = WindowHelper.ShowCmdToString(oldShowState);
+            ToString = WindowHelper.ShowCmdToString(newShowState);
+
+            CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");
         }
 
         protected virtual void OnWindowMoveStart(object sender, MouseWindowEventArgs e)
@@ -618,5 +656,12 @@ namespace FocusMaster
         public System.Drawing.Point MousePoint { get; set; }
         public IntPtr fromHWND { get; set; }
         public IntPtr toHWND { get; set; }
+    }
+
+    public class WindowStateChangedEventArgs : EventArgs
+    {
+        public IntPtr HWND { get; set; }
+        public WINDOWPLACEMENT oldPlacement { get; set; }
+        public WINDOWPLACEMENT newPlacement { get; set; }
     }
 }

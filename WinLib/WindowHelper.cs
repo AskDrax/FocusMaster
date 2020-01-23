@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Automation;
 using System.Windows.Threading;
 using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace WinLib
 {
@@ -136,7 +138,7 @@ namespace WinLib
 
             theWINDOW.borderRECT = GetWindowBorder(hWnd);
 
-            WINDOWPLACEMENT place = new WINDOWPLACEMENT();
+            WINDOWPLACEMENT place = new WINDOWPLACEMENT(true);
             GetWindowPlacement(hWnd, ref place);
             theWINDOW.placement = place;
 
@@ -681,6 +683,26 @@ namespace WinLib
                 return false;
             }
 
+        }
+
+        public static string ShowCmdToString(uint showCmd)
+        {
+            Dictionary<string, uint> AllShowCmds = new Dictionary<string, uint>();
+
+            foreach (FieldInfo field in typeof(SW).GetFields(BindingFlags.Static | BindingFlags.Public))
+            {
+                AllShowCmds.Add(field.Name, (uint)field.GetValue(null));
+            }
+
+            foreach (KeyValuePair<string, uint> showcmd in AllShowCmds)
+            {
+                if (showcmd.Value == showCmd)
+                {
+                    return showcmd.Key;
+                }
+            }
+
+            return null;
         }
 
         public static IntPtr GetClassLongPtr(IntPtr hWnd, int nIndex)

@@ -42,7 +42,7 @@ namespace WinLib
     //https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-windowplacement
     public static class SW
     {
-        public static readonly int
+        public static readonly uint
         SW_HIDE = 0,
         SW_MAXIMIZE = 3,
         SW_MINIMIZE = 6,
@@ -460,12 +460,20 @@ namespace WinLib
     [StructLayout(LayoutKind.Sequential)]
     public struct WINDOWPLACEMENT
     {
-        public int length;
-        public int flags;
-        public int showCmd;
+        public uint length;
+        public uint flags;
+        public uint showCmd;
         public System.Drawing.Point ptMinPosition;
         public System.Drawing.Point ptMaxPosition;
-        public System.Drawing.Rectangle rcNormalPosition;
+        public RECT rcNormalPosition;
+        public RECT rcDevice;
+
+        public WINDOWPLACEMENT(Boolean? filler)
+            : this() //Allows automatic initialization of "length" with "new WINDOWPLACEMENT(null/true/false)".
+        {
+            length = (UInt32)(Marshal.SizeOf(typeof(WINDOWPLACEMENT)));
+        }
+
     }
 
     [StructLayout(LayoutKind.Sequential)]
