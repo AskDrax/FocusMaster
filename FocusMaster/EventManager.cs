@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Automation;
@@ -59,10 +60,10 @@ namespace FocusMaster
         public bool IsDragMoveOver = false;
         public bool IsDragSizeOver = false;
 
-        private Timer UpdateTimer { get; set; }
+        private System.Timers.Timer UpdateTimer { get; set; }
         private int UpdateInterval = 8;
 
-        private Timer SnapTimer { get; set; }
+        private System.Timers.Timer SnapTimer { get; set; }
         private int SnapDelay = 25;
 
         private WindowHelper.WinEventDelegate procDelegate;
@@ -85,7 +86,7 @@ namespace FocusMaster
                 };
                 CurrentLog.FilterView.Refresh();
             }
-            
+
 
             WindowHelper.windowList = new ObservableCollection<AWindow>();
             WindowHelper.EnumAllWindows();
@@ -100,14 +101,14 @@ namespace FocusMaster
 
             if (UpdateTimer == null || SnapTimer == null)
             {
-                UpdateTimer = new Timer();
+                UpdateTimer = new System.Timers.Timer();
                 UpdateTimer.Interval = UpdateInterval;
                 UpdateTimer.AutoReset = true;
                 UpdateTimer.Elapsed += UpdateTimer_Tick;
                 UpdateTimer.Enabled = true;
                 UpdateTimer.Start();
 
-                SnapTimer = new Timer();
+                SnapTimer = new System.Timers.Timer();
                 SnapTimer.Interval = SnapDelay;
                 SnapTimer.AutoReset = false;
                 SnapTimer.Elapsed += SnapTimer_Tick;
@@ -137,6 +138,8 @@ namespace FocusMaster
             RegisteredHooks.Add(new WinEventHook(EV.EVENT_SYSTEM_MOVESIZEEND, OnMoveSizeEnd));
             RegisteredHooks.Add(new WinEventHook(EV.EVENT_OBJECT_LOCATIONCHANGE, OnLocationChanged));
             RegisteredHooks.Add(new WinEventHook(EV.EVENT_OBJECT_STATECHANGE, OnStateChanged));
+            RegisteredHooks.Add(new WinEventHook(EV.EVENT_SYSTEM_MINIMIZESTART, OnMinimizeStart));
+            RegisteredHooks.Add(new WinEventHook(EV.EVENT_SYSTEM_MINIMIZEEND, OnMinimizeEnd));
 
             SetHooks();
         }
@@ -299,7 +302,7 @@ namespace FocusMaster
                 return;
             }
 
-            CurrentLog.Add(LogEntryType.WindowsEvent, "Object Created: (" + e._hwnd.ToString() + ")"); 
+            CurrentLog.Add(LogEntryType.WindowsEvent, "Object Created: (" + e._hwnd.ToString() + ")");
         }
 
         protected virtual void OnObjectDestroyed(object sender, WinEventProcEventArgs e)
@@ -341,7 +344,7 @@ namespace FocusMaster
             if (lastForegroundHWND != currentForegroundHWND)
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Foreground Window Changed: from " + lastForegroundName + " (" + lastForegroundHWND.ToString() + ") to " + currentForegroundName + " (" + currentForegroundHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
 
-            OnStateChanged(sender, e);
+            //OnStateChanged(sender, e);
         }
 
         protected virtual void OnFocusChanged(object sender, WinEventProcEventArgs e)
@@ -356,27 +359,68 @@ namespace FocusMaster
 
             if (lastFocusedHWND != currentFocusedHWND)
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Focused Window Changed: from " + lastFocusedName + " (" + lastFocusedHWND.ToString() + ") to " + currentFocusedName + " (" + currentFocusedHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
+
+            //OnStateChanged(sender, e);
         }
 
         protected virtual void OnStateChanged(object sender, WinEventProcEventArgs e)
         {
-            MouseInput.GetMousePoint();
+            //MouseInput.GetMousePoint();
 
-            string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
+            //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
             AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
             if (awin != null)
             {
+                WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
                 WINDOWPLACEMENT oldPlacement = awin.placement;
                 WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
                 WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
 
-                //if (oldPlacement.showCmd != newPlacement.showCmd)
+                if (oldPlacement.showCmd != newPlacement.showCmd)
                 {
                     //this is currently buggy as heck!
+                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = newPlacement, newPlacement = oldPlacement });
                     awin.placement = newPlacement;
-                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });                 
                 }
-            }  
+            }
+        }
+
+        protected virtual void OnMinimizeStart(object sender, WinEventProcEventArgs e)
+        {
+            string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            if (awin != null)
+            {
+                WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
+                WINDOWPLACEMENT oldPlacement = awin.placement;
+                WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
+                WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
+
+                if (oldPlacement.showCmd != newPlacement.showCmd)
+                {
+                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
+                    awin.placement = newPlacement;
+                }
+            }
+        }
+
+        protected virtual void OnMinimizeEnd(object sender, WinEventProcEventArgs e)
+        {
+            string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            if (awin != null)
+            {
+                WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
+                WINDOWPLACEMENT oldPlacement = awin.placement;
+                WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
+                WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
+
+                if (oldPlacement.showCmd != newPlacement.showCmd)
+                {
+                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
+                    awin.placement = newPlacement;
+                }
+            }
         }
 
         protected virtual void OnMoveSizeStart(object sender, WinEventProcEventArgs e)

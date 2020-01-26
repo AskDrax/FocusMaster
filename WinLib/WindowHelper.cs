@@ -138,6 +138,7 @@ namespace WinLib
 
             theWINDOW.borderRECT = GetWindowBorder(hWnd);
 
+            theWINDOW.placement = new WINDOWPLACEMENT(true);
             WINDOWPLACEMENT place = new WINDOWPLACEMENT(true);
             GetWindowPlacement(hWnd, ref place);
             theWINDOW.placement = place;
