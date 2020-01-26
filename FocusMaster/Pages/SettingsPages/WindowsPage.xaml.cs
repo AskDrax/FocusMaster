@@ -37,13 +37,13 @@ namespace FocusMaster.Pages.SettingsPages
         {
             selectedWindow = windowListBox.SelectedItem as AWindow;
 
-            IconImage.Source = selectedWindow.iconImage;
-            TitleText.Text = selectedWindow.title;
-            HWNDText.Text = selectedWindow.hwnd.ToString();
+            IconImage.Source = selectedWindow.IconImage;
+            TitleText.Text = selectedWindow.Title;
+            HWNDText.Text = selectedWindow.Hwnd.ToString();
 
             StylesListBox.Items.Clear();
 
-            foreach (KeyValuePair<string, uint> style in selectedWindow.windowStyles.Styles)
+            foreach (KeyValuePair<string, uint> style in selectedWindow.WindowStyles.Styles)
             {
                 TextBlock item = new TextBlock();
                 item.Text = style.Key + " (" + style.Value.ToString() + ")";
@@ -52,7 +52,7 @@ namespace FocusMaster.Pages.SettingsPages
 
             ExStylesListBox.Items.Clear();
 
-            foreach (KeyValuePair<string, uint> exstyle in selectedWindow.windowStyles.ExStyles)
+            foreach (KeyValuePair<string, uint> exstyle in selectedWindow.WindowStyles.ExStyles)
             {
                 TextBlock item = new TextBlock();
                 item.Text = exstyle.Key + " (" + exstyle.Value.ToString() + ")";

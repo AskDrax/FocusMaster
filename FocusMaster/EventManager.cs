@@ -307,10 +307,10 @@ namespace FocusMaster
 
         protected virtual void OnObjectDestroyed(object sender, WinEventProcEventArgs e)
         {
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
             if (awin != null)
             {
-                OnWindowDestroyed(sender, new OpenCloseEventArgs() { HWND = e._hwnd, Title = awin.title });
+                OnWindowDestroyed(sender, new OpenCloseEventArgs() { HWND = e._hwnd, Title = awin.Title });
                 return;
             }
 
@@ -320,10 +320,10 @@ namespace FocusMaster
         protected virtual void OnObjectNameChanged(object sender, WinEventProcEventArgs e)
         {
             string newName = WindowHelper.GetTitleOfWindow(e._hwnd);
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
             if (awin != null)
             {
-                string oldName = awin.title;
+                string oldName = awin.Title;
                 OnWindowNameChanged(sender, new NameChangeEventArgs() { HWND = e._hwnd, oldName = oldName, newName = newName });
                 return;
             }
@@ -368,57 +368,52 @@ namespace FocusMaster
             //MouseInput.GetMousePoint();
 
             //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
             if (awin != null)
             {
-                WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
-                WINDOWPLACEMENT oldPlacement = awin.placement;
                 WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
                 WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
+                awin.LastPlacement = awin.Placement;
+                awin.Placement = newPlacement;
 
-                if (oldPlacement.showCmd != newPlacement.showCmd)
-                {
-                    //this is currently buggy as heck!
-                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = newPlacement, newPlacement = oldPlacement });
-                    awin.placement = newPlacement;
-                }
+                OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = awin.LastPlacement, newPlacement = awin.Placement });  
             }
         }
 
         protected virtual void OnMinimizeStart(object sender, WinEventProcEventArgs e)
         {
-            string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
             if (awin != null)
             {
                 WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
-                WINDOWPLACEMENT oldPlacement = awin.placement;
+                WINDOWPLACEMENT oldPlacement = awin.Placement;
                 WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
                 WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
 
                 if (oldPlacement.showCmd != newPlacement.showCmd)
                 {
                     OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
-                    awin.placement = newPlacement;
+                    awin.Placement = newPlacement;
                 }
             }
         }
 
         protected virtual void OnMinimizeEnd(object sender, WinEventProcEventArgs e)
         {
-            string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e._hwnd);
+            //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
             if (awin != null)
             {
                 WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
-                WINDOWPLACEMENT oldPlacement = awin.placement;
+                WINDOWPLACEMENT oldPlacement = awin.Placement;
                 WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
                 WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
 
                 if (oldPlacement.showCmd != newPlacement.showCmd)
                 {
                     OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
-                    awin.placement = newPlacement;
+                    awin.Placement = newPlacement;
                 }
             }
         }
@@ -510,7 +505,7 @@ namespace FocusMaster
 
         protected virtual void OnWindowDestroyed(object sender, OpenCloseEventArgs e)
         {
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e.HWND);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e.HWND);
             if (awin != null)
             {
                 WindowHelper.windowList.Remove(awin);
@@ -520,10 +515,10 @@ namespace FocusMaster
 
         protected virtual void OnWindowNameChanged(object sender, NameChangeEventArgs e)
         {
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.hwnd == e.HWND);
+            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e.HWND);
             if (awin != null)
             {
-                awin.title = e.newName;
+                awin.Title = e.newName;
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Window Name Changed: " + e.oldName + " to " + e.newName + " (" + e.HWND.ToString() + ")");
             }
         }
@@ -539,7 +534,7 @@ namespace FocusMaster
             FromString = WindowHelper.ShowCmdToString(oldShowState);
             ToString = WindowHelper.ShowCmdToString(newShowState);
 
-            CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: " + WindowHelper.GetTitleOfWindow(e.HWND).ToString() + " from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");
+            CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: " + WindowHelper.GetTitleOfWindow(e.HWND).ToString() + " from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");         
         }
 
         protected virtual void OnWindowMoveStart(object sender, MouseWindowEventArgs e)

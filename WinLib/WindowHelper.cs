@@ -31,7 +31,7 @@ namespace WinLib
 
         public static bool IsInWindowList(IntPtr hwnd)
         {
-            AWindow awin = windowList.FirstOrDefault(awindow => awindow.hwnd == hwnd);
+            AWindow awin = windowList.FirstOrDefault(awindow => awindow.Hwnd == hwnd);
             if (awin != null)
             {
                 return true;
@@ -61,7 +61,7 @@ namespace WinLib
             EnumDelegate filter = delegate (IntPtr hWnd, int lParam)
             {
                 AWindow awin = GetAWINDOW(hWnd);
-                if (IsWindowVisible(hWnd) && string.IsNullOrEmpty(awin.title) == false)
+                if (IsWindowVisible(hWnd) && string.IsNullOrEmpty(awin.Title) == false)
                 {
                     AddAWindow(awin);
                 }
@@ -76,10 +76,10 @@ namespace WinLib
         }
         public static void AddAWindow(AWindow awin)
         {
-            if (string.IsNullOrEmpty(awin.title) == false)
+            if (string.IsNullOrEmpty(awin.Title) == false)
             {
-                if (awin.title == "SET_WINDOW") return;
-                if (awin.title == "Program Manager") return;
+                if (awin.Title == "SET_WINDOW") return;
+                if (awin.Title == "Program Manager") return;
                 windowList.Add(awin);
 
                 //infoString = "Added Window: " + awin.title + " (" + awin.hwnd.ToString() + ")";
@@ -90,7 +90,7 @@ namespace WinLib
         {
             foreach (AWindow awin in windowList)
             {
-                if (awin.hwnd == hwnd)
+                if (awin.Hwnd == hwnd)
                 {
                     windowList.Remove(awin);
                     //infoString = "Removed Window: " + awin.title + " (" + hwnd.ToString() + ")";
@@ -121,44 +121,45 @@ namespace WinLib
             AWindow theWINDOW = new AWindow
             {
                 GUID = guid,
-                hwnd = hWnd,
-                title = GetTitleOfWindow(hWnd),
-                className = GetClassNameOfWindow(hWnd),
-                baseClassName = GetBaseClassNameOfWindow(hWnd),
-                savedParent = GetParent(hWnd),
-                savedStyle = GetWindowStyle(hWnd),
-                savedStyleEx = GetWindowStyleEx(hWnd),
-                automationElement = GetAutomationElementOfWindow(hWnd),
-                savedRECT = SaveWindowRect(hWnd),
-                niceRECT = SaveNiceWindowRect(hWnd),
-                borderRECT = new RECT(),
-                minRECT = new RECT(),
-                icon = GetAppIcon(hWnd)
+                Hwnd = hWnd,
+                Title = GetTitleOfWindow(hWnd),
+                ClassName = GetClassNameOfWindow(hWnd),
+                BaseClassName = GetBaseClassNameOfWindow(hWnd),
+                SavedParent = GetParent(hWnd),
+                SavedStyle = GetWindowStyle(hWnd),
+                SavedStyleEx = GetWindowStyleEx(hWnd),
+                AutomationElement = GetAutomationElementOfWindow(hWnd),
+                SavedRECT = SaveWindowRect(hWnd),
+                NiceRECT = SaveNiceWindowRect(hWnd),
+                BorderRECT = new RECT(),
+                MinRECT = new RECT(),
+                Icon = GetAppIcon(hWnd)
             };
 
-            theWINDOW.borderRECT = GetWindowBorder(hWnd);
+            theWINDOW.BorderRECT = GetWindowBorder(hWnd);
 
-            theWINDOW.placement = new WINDOWPLACEMENT(true);
+            theWINDOW.Placement = new WINDOWPLACEMENT(true);
             WINDOWPLACEMENT place = new WINDOWPLACEMENT(true);
             GetWindowPlacement(hWnd, ref place);
-            theWINDOW.placement = place;
+            theWINDOW.Placement = place;
+            theWINDOW.LastPlacement = place;
 
-            theWINDOW.iconImage = ToImageSource(theWINDOW.icon);
+            theWINDOW.IconImage = ToImageSource(theWINDOW.Icon);
 
             WINDOWINFO info = new WINDOWINFO();
             info.cbSize = (uint)Marshal.SizeOf(info);
             bool gotInfo = GetWindowInfo(hWnd, ref info);
-            theWINDOW.info = info;
+            theWINDOW.Info = info;
 
             uint threadId;
             GetWindowThreadProcessId(hWnd, out threadId);
-            theWINDOW.threadProcessId = threadId;
+            theWINDOW.ThreadProcessId = threadId;
 
             GUITHREADINFO guiInfo = GetWindowGUIThreadInfo(hWnd);
-            theWINDOW.guiThreadInfo = guiInfo;
+            theWINDOW.GuiThreadInfo = guiInfo;
 
             WindowStyles styles = new WindowStyles();
-            theWINDOW.windowStyles = styles.FromHWND(hWnd);
+            theWINDOW.WindowStyles = styles.FromHWND(hWnd);
 
             return theWINDOW;
         }
@@ -215,10 +216,10 @@ namespace WinLib
         {
             for (int i = 0; i < windowList.Count; i++)
             {
-                int[] listedId = windowList[i].automationElement.GetRuntimeId();
+                int[] listedId = windowList[i].AutomationElement.GetRuntimeId();
                 if (Automation.Compare(listedId, runtimeId))
                 {
-                    return windowList[i].hwnd;
+                    return windowList[i].Hwnd;
                 }
             }
             return IntPtr.Zero;
@@ -377,15 +378,15 @@ namespace WinLib
 
         public static void RestoreWindow(AWindow awin)
         {
-            int oldX = awin.savedRECT.Left;
-            int oldY = awin.savedRECT.Top;
-            int oldWidth = awin.savedRECT.Right - awin.savedRECT.Left;
-            int oldHeight = awin.savedRECT.Bottom - awin.savedRECT.Top;
+            int oldX = awin.SavedRECT.Left;
+            int oldY = awin.SavedRECT.Top;
+            int oldWidth = awin.SavedRECT.Right - awin.SavedRECT.Left;
+            int oldHeight = awin.SavedRECT.Bottom - awin.SavedRECT.Top;
 
             WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
-            placement = awin.placement;
-            SetWindowPlacement(awin.hwnd, ref placement);
-            SetWindowPos(awin.hwnd,
+            placement = awin.Placement;
+            SetWindowPlacement(awin.Hwnd, ref placement);
+            SetWindowPos(awin.Hwnd,
                          WinLib.HWND.HWND_BOTTOM,
                          oldX, oldY,
                          oldWidth, oldHeight,

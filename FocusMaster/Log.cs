@@ -47,8 +47,8 @@ namespace FocusMaster
             previousLogEntry = LogEntries.Last();
                 
             LogEntry newLogEntry = new LogEntry(type, text);
-            if (/*type == LogEntryType.ApplicationEvent &&*/ newLogEntry.EntryText == previousLogEntry.EntryText)
-                return;
+            //if (/*type == LogEntryType.ApplicationEvent &&*/ newLogEntry.EntryText == previousLogEntry.EntryText)
+            //    return;
 
             LogEntries.Add(newLogEntry);
 
