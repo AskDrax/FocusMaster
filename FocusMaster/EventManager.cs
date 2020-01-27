@@ -78,12 +78,10 @@ namespace FocusMaster
             if (CurrentLog == null)
             {
                 CurrentLog = new Log();
-                CurrentLog.FilterBy = new LogEntryType[]
-                {
-                    LogEntryType.None,
-                    LogEntryType.ApplicationEvent,
-                    LogEntryType.WindowsEvent
-                };
+                CurrentLog.FilterBy = new List<LogEntryType>();
+                CurrentLog.FilterBy.Add(LogEntryType.None);
+                CurrentLog.FilterBy.Add(LogEntryType.WindowsEvent);
+                CurrentLog.FilterBy.Add(LogEntryType.ApplicationEvent);
                 CurrentLog.FilterView.Refresh();
             }
 
@@ -343,8 +341,6 @@ namespace FocusMaster
 
             if (lastForegroundHWND != currentForegroundHWND)
                 CurrentLog.Add(LogEntryType.WindowsEvent, "Foreground Window Changed: from " + lastForegroundName + " (" + lastForegroundHWND.ToString() + ") to " + currentForegroundName + " (" + currentForegroundHWND.ToString() + ") at " + MouseInput.mousePoint.ToString());
-
-            //OnStateChanged(sender, e);
         }
 
         protected virtual void OnFocusChanged(object sender, WinEventProcEventArgs e)
@@ -365,9 +361,6 @@ namespace FocusMaster
 
         protected virtual void OnStateChanged(object sender, WinEventProcEventArgs e)
         {
-            //MouseInput.GetMousePoint();
-
-            //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
             AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
             if (awin != null)
             {
@@ -382,40 +375,12 @@ namespace FocusMaster
 
         protected virtual void OnMinimizeStart(object sender, WinEventProcEventArgs e)
         {
-            //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
-            if (awin != null)
-            {
-                WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
-                WINDOWPLACEMENT oldPlacement = awin.Placement;
-                WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
-                WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
-
-                if (oldPlacement.showCmd != newPlacement.showCmd)
-                {
-                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
-                    awin.Placement = newPlacement;
-                }
-            }
+            OnStateChanged(sender, e);
         }
 
         protected virtual void OnMinimizeEnd(object sender, WinEventProcEventArgs e)
         {
-            //string windowName = WindowHelper.GetTitleOfWindow(e._hwnd);
-            AWindow awin = WindowHelper.windowList.FirstOrDefault(awindow => awindow.Hwnd == e._hwnd);
-            if (awin != null)
-            {
-                WINDOWPLACEMENT oldplacement = new WINDOWPLACEMENT(true);
-                WINDOWPLACEMENT oldPlacement = awin.Placement;
-                WINDOWPLACEMENT newPlacement = new WINDOWPLACEMENT(true);
-                WindowHelper.GetWindowPlacement(e._hwnd, ref newPlacement);
-
-                if (oldPlacement.showCmd != newPlacement.showCmd)
-                {
-                    OnWindowStateChanged(sender, new WindowStateChangedEventArgs() { HWND = e._hwnd, oldPlacement = oldPlacement, newPlacement = newPlacement });
-                    awin.Placement = newPlacement;
-                }
-            }
+            OnStateChanged(sender, e);
         }
 
         protected virtual void OnMoveSizeStart(object sender, WinEventProcEventArgs e)
@@ -534,7 +499,16 @@ namespace FocusMaster
             FromString = WindowHelper.ShowCmdToString(oldShowState);
             ToString = WindowHelper.ShowCmdToString(newShowState);
 
-            CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: " + WindowHelper.GetTitleOfWindow(e.HWND).ToString() + " from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");         
+            if (oldShowState == newShowState)
+            {
+                CurrentLog.FilterView.Refresh();
+                MainWindow.LogPage.ScrollToCurrent();
+            }
+            else
+            {
+                CurrentLog.Add(LogEntryType.WindowsEvent, "Window State Changed: " + WindowHelper.GetTitleOfWindow(e.HWND).ToString() + " from " + FromString + " (" + oldShowState.ToString() + ") to " + ToString + " (" + newShowState.ToString() + ")");
+            }
+            
         }
 
         protected virtual void OnWindowMoveStart(object sender, MouseWindowEventArgs e)
@@ -640,8 +614,9 @@ namespace FocusMaster
 
         protected virtual void OnLeftMouseDown(MouseInput.MSLLHOOKSTRUCT mouseStruct)
         {
-
             CurrentLog.Add(LogEntryType.None, "Mouse Left-Clicked at: X=" + mouseStruct.pt.x.ToString() + ",Y=" + mouseStruct.pt.y.ToString());
+
+            //OnStateChanged(null, new WinEventProcEventArgs() { _hwnd = currentForegroundHWND});
         }
     }
 

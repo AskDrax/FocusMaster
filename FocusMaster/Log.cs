@@ -18,22 +18,15 @@ namespace FocusMaster
 
             LogEntries = new ObservableCollection<LogEntry>();
 
-            FilterBy = new LogEntryType[]
-            {
-                LogEntryType.None,
-                LogEntryType.WindowsEvent,
-                LogEntryType.ApplicationEvent
-            };
-
             FilterView = (ListCollectionView)CollectionViewSource.GetDefaultView(LogEntries);
-            
+            FilterView.Filter = EventTypeFilter;
         }
 
         public MainWindow MainWindow { get; set; }
         public Pages.LogPage LogPage { get; set; }
 
         public ObservableCollection<LogEntry> LogEntries { get; set; }
-        public LogEntryType[] FilterBy { get; set; }
+        public List<LogEntryType> FilterBy { get; set; }
 
         public ListCollectionView FilterView;
 

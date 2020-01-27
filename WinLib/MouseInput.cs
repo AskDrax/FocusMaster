@@ -131,6 +131,7 @@ namespace WinLib
         public event MouseHookCallback MouseMove;
         public event MouseHookCallback MouseWheel;
         public event MouseHookCallback DoubleClick;
+        public event MouseHookCallback NCDoubleClick;
         public event MouseHookCallback MiddleButtonDown;
         public event MouseHookCallback MiddleButtonUp;
         #endregion
@@ -225,6 +226,9 @@ namespace WinLib
                         if (MouseMessages.WM_LBUTTONDBLCLK == (MouseMessages)wParam)
                             if (DoubleClick != null)
                                 DoubleClick((MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT)));
+                        if (MouseMessages.WM_NCLBUTTONDBLCLK == (MouseMessages)wParam)
+                            if (NCDoubleClick != null)
+                                NCDoubleClick((MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT)));
                         if (MouseMessages.WM_MBUTTONDOWN == (MouseMessages)wParam)
                             if (MiddleButtonDown != null)
                                 MiddleButtonDown((MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT)));
@@ -249,6 +253,7 @@ namespace WinLib
             WM_RBUTTONDOWN = 0x0204,
             WM_RBUTTONUP = 0x0205,
             WM_LBUTTONDBLCLK = 0x0203,
+            WM_NCLBUTTONDBLCLK = 0x00A3,
             WM_MBUTTONDOWN = 0x0207,
             WM_MBUTTONUP = 0x0208
         }
