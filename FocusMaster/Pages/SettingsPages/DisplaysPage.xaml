@@ -4,11 +4,46 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FocusMaster.Pages.SettingsPages"
+      xmlns:win="clr-namespace:WinLib;assembly=WinLib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="DisplaysPage">
+      Title="DisplaysPage"
+      >
 
     <Grid>
         <TextBlock x:Name="HeaderText" Margin="2,-48,0,0" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Azure" Text="/  Displays" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="NumDisplaysText" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="Number of Displays: "/>
+                <TextBlock x:Name="NumDisplaysValue" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="{Binding Source={x:Static win:DisplayHelper.NumberOfDisplays}}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="PrimaryResolutionText" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="Primary Screen Resolution: "/>
+                <TextBlock x:Name="PrimaryResolutionValue" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="{Binding Source={x:Static win:DisplayHelper.PrimaryScreenResolution}}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="VirtualResolutionText" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="Virtual Screen Resolution: "/>
+                <TextBlock x:Name="VirtualResolutionValue" HorizontalAlignment="Left" FontSize="16" FontFamily="Segoe UI Semibold" Foreground="Azure" Text="{Binding Source={x:Static win:DisplayHelper.VirtualScreenResolution}}"/>
+            </StackPanel>
+            <ListBox x:Name="displayListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:DisplayHelper.displayList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="False">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Height="114">
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding DeviceName}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding DeviceFriendlyName}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding DeviceID}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Manufacturer}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Availability}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding ScreenResolution}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+
+       
     </Grid>
 </Page>

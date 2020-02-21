@@ -18,7 +18,6 @@ namespace FocusMaster
         {
             Initialize();
         }
-
         public static bool NoClickOnlyFocus { get; set; }
         public static bool NoFocusOnlyClick { get; set; }
         public static MainWindow MainWindow { get; set; }
@@ -70,7 +69,10 @@ namespace FocusMaster
 
         public void Initialize()
         {
+            DisplayHelper.Initialize();
+
             NoClickOnlyFocus = false;
+            
 
             MainWindow = (MainWindow)Application.Current.MainWindow;
             DesktopHWND = WindowHelper.GetDesktopWindow();

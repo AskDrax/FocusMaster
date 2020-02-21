@@ -27,6 +27,7 @@ namespace FocusMaster.Pages
         public NavigationService NavService;
         public SettingsPages.HomePage HomePage;
         public SettingsPages.DisplaysPage DisplaysPage;
+        public SettingsPages.ScreenSpacePage ScreenSpacePage;
         public SettingsPages.WindowsPage WindowsPage;
         public SettingsPages.AutomationPage AutomationPage;
         public SettingsPages.LogsPage LogsPage;
@@ -48,6 +49,7 @@ namespace FocusMaster.Pages
         {
             HomePage = new SettingsPages.HomePage();
             DisplaysPage = new SettingsPages.DisplaysPage();
+            ScreenSpacePage = new SettingsPages.ScreenSpacePage();
             WindowsPage = new SettingsPages.WindowsPage();
             AutomationPage = new SettingsPages.AutomationPage();
             LogsPage = new SettingsPages.LogsPage();
@@ -91,6 +93,12 @@ namespace FocusMaster.Pages
         {
             SelectNav(sender, e);
             NavService.Navigate(ExperimentalPage);
+        }
+
+        private void ScreenSpaceButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectNav(sender, e);
+            NavService.Navigate(ScreenSpacePage);
         }
     }
 }

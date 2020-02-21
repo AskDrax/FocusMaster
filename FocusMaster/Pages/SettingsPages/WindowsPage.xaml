@@ -25,6 +25,7 @@
                 <RowDefinition Height="32"/>
             </Grid.RowDefinitions>
             <ListBox x:Name="windowListBox" Grid.Row="0" HorizontalAlignment="Stretch" BorderThickness="0" FontSize="12" FontFamily="Segoe UI Semibold" ItemsSource="{x:Static win:WindowHelper.windowList}" Background="Transparent" Foreground="Azure" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsSynchronizedWithCurrentItem="False" SelectionChanged="windowListBox_SelectionChanged">
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Height="24">
