@@ -58,6 +58,9 @@
     <Compile Include="DWMHelper.cs" />
     <Compile Include="MouseInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screen.cs" />
+    <Compile Include="ScreenSpaceHelper.cs" />
+    <Compile Include="ScreenSpaceMap.cs" />
     <Compile Include="WindowHelper.cs" />
     <Compile Include="WindowStyles.cs" />
   </ItemGroup>

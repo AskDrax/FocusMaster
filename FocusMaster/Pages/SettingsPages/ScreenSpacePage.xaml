@@ -7,10 +7,15 @@
       xmlns:win="clr-namespace:WinLib;assembly=WinLib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ScreenSpacePage">
+      Title="ScreenSpacePage" Loaded="Page_Loaded" SizeChanged="Page_SizeChanged">
 
     <Grid>
         <TextBlock x:Name="HeaderText" Margin="2,-48,0,0" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Azure" Text="/  ScreenSpace" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Canvas x:Name="SSCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Border x:Name="ScreenSpaceBorder" Background="#11FFFFFF" Margin="10,10,10,10">
+            <Grid x:Name="ScreenSpaceMapGrid">
+
+            </Grid>
+        </Border>
+        
     </Grid>
 </Page>

@@ -37,6 +37,7 @@
                             <TextBlock HorizontalAlignment="Left" Text="{Binding Manufacturer}"/>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding Availability}"/>
                             <TextBlock HorizontalAlignment="Left" Text="{Binding ScreenResolution}"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding ScreenTopLeft}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

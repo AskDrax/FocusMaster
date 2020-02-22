@@ -38,8 +38,8 @@ namespace WinLib
             VirtualScreenWidth = SystemParameters.VirtualScreenWidth;
             VirtualScreenHeight = SystemParameters.VirtualScreenHeight;
 
-            PrimaryScreenResolution = PrimaryScreenHeight.ToString() + " x " + PrimaryScreenWidth.ToString();
-            VirtualScreenResolution = VirtualScreenHeight.ToString() + " x " + VirtualScreenWidth.ToString();
+            PrimaryScreenResolution = PrimaryScreenWidth.ToString() + " x " + PrimaryScreenHeight.ToString();
+            VirtualScreenResolution = VirtualScreenWidth.ToString() + " x " + VirtualScreenHeight.ToString();
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]

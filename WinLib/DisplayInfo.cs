@@ -16,6 +16,7 @@ namespace WinLib
         public string ScreenHeight { get; set; }
         public string ScreenWidth { get; set; }
         public string ScreenResolution { get; set; }
+        public string ScreenTopLeft { get; set; }
         public RECT MonitorArea { get; set; }
         public RECT WorkArea { get; set; }
     }

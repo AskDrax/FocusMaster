@@ -29,7 +29,8 @@ namespace WinLib
                         di.WorkArea = mi.WorkArea;
                         di.IsPrimaryDisplay = mi.Flags.ToString();
                         di.DeviceName = mi.DeviceName;
-                        di.ScreenResolution = di.ScreenHeight + " x " + di.ScreenWidth;
+                        di.ScreenResolution = di.ScreenWidth + " x " + di.ScreenHeight;
+                        di.ScreenTopLeft = di.MonitorArea.Left.ToString() + "," + di.MonitorArea.Top.ToString();
                         col.Add(di);
                     }
                     return true;
