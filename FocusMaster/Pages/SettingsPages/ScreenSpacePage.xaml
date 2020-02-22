@@ -11,9 +11,9 @@
 
     <Grid>
         <TextBlock x:Name="HeaderText" Margin="2,-48,0,0" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Azure" Text="/  ScreenSpace" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Border x:Name="ScreenSpaceBorder" Background="#11FFFFFF" Margin="10,10,10,10">
+        <Border x:Name="ScreenSpaceBorder" Background="Transparent" Margin="10,10,10,10">
             <Grid x:Name="ScreenSpaceMapGrid">
-
+                
             </Grid>
         </Border>
         

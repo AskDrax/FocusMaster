@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:FocusMaster.Controls">
 
     <Style x:Key="TextButtonStyle" TargetType="{x:Type local:ImageTextButton}">
-        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ImageTextButton}">

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FocusMaster"
+        xmlns:con="clr-namespace:FocusMaster.Controls"
         mc:Ignorable="d"
         Title="FocusMaster!" 
         Height="450" Width="800"
@@ -13,7 +14,7 @@
         BorderBrush="{StaticResource WindowBorderBrush}"
         WindowStyle="None"
         RenderOptions.BitmapScalingMode="Fant"
-        AllowsTransparency="True" StateChanged="Window_StateChanged" Loaded="Window_Loaded" Closing="Window_Closing"
+        AllowsTransparency="True" StateChanged="Window_StateChanged" Loaded="Window_Loaded" Closing="Window_Closing" Activated="Window_Activated" Deactivated="Window_Deactivated"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome x:Name="chrome"
@@ -33,13 +34,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="180"/>
             </Grid.ColumnDefinitions>
-            <Border x:Name="MainIcon" Grid.Column="0" Background="Azure" OpacityMask="{StaticResource StackImage}"/>
+            <Button x:Name="MainIcon" Grid.Column="0" Background="Azure" OpacityMask="{StaticResource StackImage}" Style="{StaticResource TitleIconButtonStyle}"/>
             <TextBlock x:Name="MainTitle" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" LineStackingStrategy="BlockLineHeight" FontFamily="Segoe UI Semibold" FontSize="14" VerticalAlignment="Center" Foreground="Azure" Text="Focus Master!"/>
             <StackPanel x:Name="ControlBoxStack" Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-                <Button x:Name="CloseButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource CloseImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="CloseButton_Click"/>
-                <Button x:Name="MaximizeButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource MaximizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MaximizeButton_Click"/>
-                <Button x:Name="MinimizeButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource MinimizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MinimizeButton_Click"/>
-                <Button x:Name="SettingsButton" Width="32" VerticalAlignment="Stretch" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource SettingsImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="SettingsButton_Click"/>
+                <con:ImageButton x:Name="CloseButton" Width="32" VerticalAlignment="Stretch" Style="{StaticResource TitleButtonStyle}" Toggleable="False" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource CloseImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="CloseButton_Click"/>
+                <con:ImageButton x:Name="MaximizeButton" Width="32" VerticalAlignment="Stretch" Style="{StaticResource TitleButtonStyle}" Toggleable="False" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource MaximizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MaximizeButton_Click"/>
+                <con:ImageButton x:Name="MinimizeButton" Width="32" VerticalAlignment="Stretch" Style="{StaticResource TitleButtonStyle}" Toggleable="False" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource MinimizeImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="MinimizeButton_Click"/>
+                <con:ImageButton x:Name="SettingsButton" Width="32" VerticalAlignment="Stretch" Style="{StaticResource TitleButtonStyle}" Toggleable="False" Background="{StaticResource TitleButtonBackgroundBrush}" OpacityMask="{StaticResource SettingsImage}" IsHitTestVisible="True" WindowChrome.IsHitTestVisibleInChrome="True" Click="SettingsButton_Click"/>
             </StackPanel>
         </Grid>
         <Border x:Name="ContentBorder" Grid.Row="1" Background="{StaticResource WindowBackgroundBrush}"/>

@@ -86,6 +86,7 @@ namespace WinLib
             ScreenBorder = new Border();
             ScreenBorder.BorderThickness = new Thickness(4.0f);
             ScreenBorder.BorderBrush = (SolidColorBrush)Application.Current.FindResource("ButtonHighlightBrush");
+            ScreenBorder.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(100, 50, 50, 50));
             ScreenBorder.HorizontalAlignment = HorizontalAlignment.Left;
             ScreenBorder.VerticalAlignment = VerticalAlignment.Top;
 
@@ -136,15 +137,6 @@ namespace WinLib
                 tt.Y = 0;
             }
             
-            ScreenBorder.RenderTransform = tt;
-        }
-
-        public void Offset(double x, double y)
-        {
-            TranslateTransform tt = new TranslateTransform();
-            tt.X = x;
-            tt.Y = y;
-
             ScreenBorder.RenderTransform = tt;
         }
     }

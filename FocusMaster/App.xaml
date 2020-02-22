@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Resources/SliderStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/ScrollBarStyle.xaml"/>
                 <ResourceDictionary Source="/Resources/ImageTextButtonStyle.xaml"/>
+                <ResourceDictionary Source="/Resources/TitleButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

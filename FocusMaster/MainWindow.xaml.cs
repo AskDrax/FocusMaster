@@ -102,5 +102,15 @@ namespace FocusMaster
         {
             EventManager.Dispose();
         }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            VisualStateManager.GoToState(MainIcon, "Press", true);
+        }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            VisualStateManager.GoToState(MainIcon, "Normal", true);
+        }
     }
 }
