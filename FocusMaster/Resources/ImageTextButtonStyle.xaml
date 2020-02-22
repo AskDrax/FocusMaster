@@ -161,6 +161,22 @@
 						/>
     </Storyboard>
 
+    <Storyboard x:Key="ForegroundHighlight">
+        <ColorAnimation Storyboard.TargetName="ForegroundBorder"
+                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                        To="{StaticResource HighlightBlue}"
+                        Duration="0:0:0.1"
+                        />
+    </Storyboard>
+
+    <Storyboard x:Key="ForegroundUnhighlight">
+        <ColorAnimation Storyboard.TargetName="ForegroundBorder"
+                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+                        To="{StaticResource LighterGrey}"
+                        Duration="0:0:0.1"
+                        />
+    </Storyboard>
+
     <Storyboard x:Key="BackgroundHover">
         <ColorAnimation Storyboard.TargetName="BackgroundBorder"
 						Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
